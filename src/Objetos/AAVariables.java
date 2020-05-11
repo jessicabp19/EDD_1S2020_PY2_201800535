@@ -1,5 +1,5 @@
 package Objetos;
-import UI.Inicio;
+import UI.Login;
 import Estructuras.*;
 
 public class AAVariables {
@@ -7,7 +7,7 @@ public class AAVariables {
     public static TablaHash miTablaUsuarios = new TablaHash(45);
     
     public AAVariables() {
-        Inicio miPantalla = new Inicio();
+        Login miPantalla = new Login();
         miPantalla.setVisible(true);
         miPantalla.setTitle("USAC LIBRARY");
     }
