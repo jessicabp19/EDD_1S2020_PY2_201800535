@@ -1,12 +1,17 @@
 package UI;
+
 import Estructuras.TablaHash;
-import static Objetos.AAVariables.miTablaUsuarios;
+import Objetos.Usuario;
+import static Objetos.AAVariables.*;
+import javax.swing.JOptionPane;
+
 public class FrmUsuarios extends javax.swing.JFrame {
 
     public static FrmUsuarios INSTANCE = null;
-    
+
     public FrmUsuarios() {
         initComponents();
+        infoUsuario();
     }
 
     @SuppressWarnings("unchecked")
@@ -19,12 +24,12 @@ public class FrmUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        txtCarnet = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
-        txtExistencia = new javax.swing.JTextField();
-        txtNumPrincipal = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtCarrera = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -33,12 +38,12 @@ public class FrmUsuarios extends javax.swing.JFrame {
         btnCargar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        txtCarnet1 = new javax.swing.JTextField();
         txtNombre1 = new javax.swing.JTextField();
-        txtDescripcion1 = new javax.swing.JTextField();
-        txtExistencia1 = new javax.swing.JTextField();
-        txtNumPrincipal1 = new javax.swing.JTextField();
+        txtApellido1 = new javax.swing.JTextField();
+        txtCarrera1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtPrecio1 = new javax.swing.JTextField();
+        txtContrasenia1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -66,7 +71,9 @@ public class FrmUsuarios extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
         jLabel4.setText("Nombre: ");
 
-        txtNumPrincipal.setToolTipText("Ingresar ID");
+        txtCarnet.setEnabled(false);
+
+        txtCarrera.setToolTipText("Ingresar ID");
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel8.setText("Carnet:");
@@ -109,17 +116,17 @@ public class FrmUsuarios extends javax.swing.JFrame {
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(txtNombre)
-                                .addComponent(txtNumPrincipal))))
+                                .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtCarnet)
+                                .addComponent(txtCarrera))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -127,23 +134,23 @@ public class FrmUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addComponent(btnModificar)
@@ -172,7 +179,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
         jLabel9.setText("Nombre: ");
 
-        txtNumPrincipal1.setToolTipText("Ingresar ID");
+        txtCarrera1.setToolTipText("Ingresar ID");
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel10.setText("Carnet:");
@@ -215,15 +222,15 @@ public class FrmUsuarios extends javax.swing.JFrame {
                                         .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtExistencia1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(txtNombre1)
-                                    .addComponent(txtNumPrincipal1))))
+                                    .addComponent(txtApellido1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(txtCarnet1)
+                                    .addComponent(txtCarrera1))))
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(jLabel13)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -232,27 +239,27 @@ public class FrmUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCarnet1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtExistencia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumPrincipal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCarrera1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregar)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnEliminar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -312,19 +319,10 @@ public class FrmUsuarios extends javax.swing.JFrame {
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCargar))
-                .addGap(17, 17, 17))
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -344,28 +342,28 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        /*if (cajasTextoVacias()) {
+        if (txtBoxAddVacias()) {
         } else {
             try {
-                double precio = Double.parseDouble(txtPrecio.getText());
-                int existencias = Integer.parseInt(txtExistencia.getText());
-                if (precio <= 0 || existencias <= 0) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'Precio' y 'Existencias' ");
-                } else if (miListaProductos.yaExiste(txtNombre.getText(), txtDescripcion.getText(),
-                    precio, existencias, txtDireccion.getText())) {
-                JOptionPane.showMessageDialog(null, "El producto ya existe en el sistema");
-            } else {
-                miListaProductos.addProducto(txtNombre.getText(), txtDescripcion.getText(),
-                    precio, existencias, txtDireccion.getText());
-                miListaProductos.mostrarTabla(tablaProductos);
-                limpiar();
+                long carnet = Long.parseLong(txtCarnet1.getText());
+                if (carnet < 0) {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar un número positivo en 'Carnet'", "ATENCIÓN", 1);
+                } else if (miTablaUsuarios.carnetRegistrado(carnet)) {
+                    JOptionPane.showMessageDialog(null, "Ese número de carnet ya esta registrado", "ATENCIÓN", 1);
+                } else {
+                    Usuario user = new Usuario(carnet, txtNombre1.getText(),txtApellido1.getText(),txtCarrera1.getText(), txtContrasenia1.getText());
+                    //Usuario user = new Usuario(carnet, txtNombre.getText(),txtApellido.getText(),txtCarrera.getText(), txtContrasenia.getText());
+                    miTablaUsuarios.insertar(user);
+                    JOptionPane.showMessageDialog(null, "Registro Exitoso!", "Completado", 1);
+                    //miListaProductos.mostrarTabla(tablaProductos);
+                    limpiar();
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un número en 'Carnet'");
+            } catch (Exception ed) {
+                JOptionPane.showMessageDialog(null, " - ERROR, intenta mas tarde - ", "ERROR", 1);
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar números en 'Precio' y 'Existencias' ");
-        } catch (Exception ed) {
-            JOptionPane.showMessageDialog(null, " - ERROR, intenta mas tarde - ", "ERROR", 1);
         }
-        }*/
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
@@ -414,7 +412,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe ingresar un Identificador");
         } else if (!miListaProductos.existe(Integer.parseInt(txtNumPrincipal.getText()))) {
             JOptionPane.showMessageDialog(null, " - No existe un producto con ese ID - ");
-        } else if (cajasTextoVacias()) {
+        } else if (txtBoxEditVacias()) {
         } else if (Double.parseDouble(txtPrecio.getText()) <= 0 && Integer.parseInt(txtExistencia.getText()) < 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'Precio' y 'Existencias' ");
         } else {
@@ -427,6 +425,31 @@ public class FrmUsuarios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ERROR, Datos no validos: " + e.getMessage());
             }
         }*/
+        if (txtBoxEditVacias()) {
+        } else {
+            try {
+                /*long carnet = Long.parseLong(txtCarnet1.getText());
+                if (carnet < 0) {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar un número positivo en 'Carnet'", "ATENCIÓN", 1);
+                } else if (miTablaUsuarios.carnetRegistrado(carnet)) {
+                    JOptionPane.showMessageDialog(null, "Ese número de carnet ya esta registrado", "ATENCIÓN", 1);
+                } else {*/
+                    //Usuario user = new Usuario(carnet, txtNombre1.getText(),txtApellido1.getText(),txtCarrera1.getText(), txtContrasenia1.getText());
+                    //Usuario user = new Usuario(carnet, txtNombre.getText(),txtApellido.getText(),txtCarrera.getText(), txtContrasenia.getText());
+                    //miTablaUsuarios.insertar(user);
+                    miUsuarioLogueado.setNombre(txtNombre.getText());
+                    miUsuarioLogueado.setApellido(txtApellido.getText());
+                    miUsuarioLogueado.setCarrera(txtCarrera.getText());
+                    miUsuarioLogueado.setPassword(txtContrasenia.getText());
+                    JOptionPane.showMessageDialog(null, "Modificación Exitosa!", "Completado", 1);
+                    //miListaProductos.mostrarTabla(tablaProductos);
+                //}
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un número en 'Carnet'");
+            } catch (Exception ed) {
+                JOptionPane.showMessageDialog(null, " - ERROR, intenta mas tarde - ", "ERROR", 1);
+            }
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -464,12 +487,14 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }
 
     public static FrmUsuarios getSingletonInstance() {
+        
         if (INSTANCE == null) {
             INSTANCE = new FrmUsuarios();
         }
+        
         return INSTANCE;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCargar;
@@ -492,15 +517,49 @@ public class FrmUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtDescripcion1;
-    private javax.swing.JTextField txtExistencia;
-    private javax.swing.JTextField txtExistencia1;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellido1;
+    private javax.swing.JTextField txtCarnet;
+    private javax.swing.JTextField txtCarnet1;
+    private javax.swing.JTextField txtCarrera;
+    private javax.swing.JTextField txtCarrera1;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtContrasenia1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre1;
-    private javax.swing.JTextField txtNumPrincipal;
-    private javax.swing.JTextField txtNumPrincipal1;
-    private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtPrecio1;
     // End of variables declaration//GEN-END:variables
+
+    public boolean txtBoxEditVacias() {
+        if (txtCarnet.getText().equals("") || txtNombre.getText().equals("") || txtApellido.getText().equals("")
+                || txtCarrera.getText().equals("") || txtContrasenia.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe Completar la Información Correpondiente", "ATENCIÓN", 1);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean txtBoxAddVacias() {
+        if (txtCarnet1.getText().equals("") || txtNombre1.getText().equals("") || txtApellido1.getText().equals("")
+                || txtCarrera1.getText().equals("") || txtContrasenia1.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe Completar la Información Correpondiente", "ATENCIÓN", 1);
+            return true;
+        }
+        return false;
+    }
+    
+    public void limpiar() {
+        txtCarnet1.setText("");
+        txtNombre1.setText("");
+        txtApellido1.setText("");
+        txtCarrera1.setText("");
+        txtContrasenia1.setText("");
+    }
+    
+    public void infoUsuario() {
+        txtCarnet.setText(""+miUsuarioLogueado.getCarnet());
+        txtNombre.setText(miUsuarioLogueado.getNombre());
+        txtApellido.setText(miUsuarioLogueado.getApellido());
+        txtCarrera.setText(miUsuarioLogueado.getCarrera());
+        txtContrasenia.setText(miUsuarioLogueado.getPassword());
+    }
 }

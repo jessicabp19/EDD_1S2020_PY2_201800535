@@ -1,7 +1,10 @@
 package UI;
 
+import Archivos.BTree;
+import Interfaces.ITree;
 import javax.swing.*;
 import static Objetos.AAVariables.*;
+import Objetos.Libro;
 import Objetos.Usuario;
 import java.io.FileReader;
 
@@ -15,19 +18,19 @@ import java.util.Iterator;
 public class Login extends javax.swing.JFrame {
 
     public static Login INSTANCE = null;
-    
+
     public Login() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
     }
-    
+
     public static Login getSingletonInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Login();
         }
         return INSTANCE;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,7 +167,7 @@ public class Login extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnRegistrarse.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
-        btnRegistrarse.setText("REGISTRARSE");
+        btnRegistrarse.setText("CARGA MASIVA");
         btnRegistrarse.setToolTipText("");
         btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,14 +176,19 @@ public class Login extends javax.swing.JFrame {
         });
 
         txtCarnet.setToolTipText("CARNET");
+        txtCarnet.setEnabled(false);
 
         txtCarrera.setToolTipText("CARRERA");
+        txtCarrera.setEnabled(false);
 
         txtApellido.setToolTipText("APELLIDO");
+        txtApellido.setEnabled(false);
 
         txtNombre.setToolTipText("NOMBRE");
+        txtNombre.setEnabled(false);
 
         txtPassword1.setToolTipText("PASSWORD");
+        txtPassword1.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Copperplate Gothic Bold", 3, 24)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/adduser.png"))); // NOI18N
@@ -236,11 +244,11 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,75 +257,64 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (txtUser.getText().equals("") && txtPassword.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese carnet y contraseña", "ATENCIÓN", 0);
-        } else if (txtUser.getText().equals("123") && txtPassword.getText().equals("123")) {
-            ingresoAdmin();
-        }else if(miTablaUsuarios.estaRegistrado(Long.parseLong(txtUser.getText()))){
-            //setCliente(miListaClientes.obtenerCliente(txtUser.getText(),txtPassword.getText()));
-            miUsuarioLogueado=miTablaUsuarios.obtenerUsuario(Long.parseLong(txtUser.getText()));
-            ingresoAdmin();
-        }else{
-            JOptionPane.showMessageDialog(null, "Usuario no registrado, Registrese primero", "ATENCIÓN", 2);
+        try {
+            if (txtUser.getText().equals("") || txtPassword.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingrese carnet y contraseña", "ATENCIÓN", 0);
+            /*} else if (txtUser.getText().equals("123") && txtPassword.getText().equals("123")) {
+                ingreso();*/
+            } else if (miTablaUsuarios.puedeAcceder(Long.parseLong(txtUser.getText()), txtPassword.getText())) {
+                miUsuarioLogueado = miTablaUsuarios.obtenerUsuario(Long.parseLong(txtUser.getText()));
+                ingreso();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no registrado, Registrese primero", "ATENCIÓN", 2);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar un número en 'Carnet'", "ATENCIÓN", 1);
         }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         JFileChooser ventana = new JFileChooser();
         ventana.showOpenDialog(ventana);
-        
-        try{
+
+        try {
             String path = ventana.getSelectedFile().getAbsolutePath();
-            if(path.endsWith(".json")){
+            if (path.endsWith(".json")) {
                 JSONParser parser = new JSONParser();
-                try{
+                try {
                     Object obj = parser.parse(new FileReader(path));
-                    JSONObject jsonObj = (JSONObject)obj;
-                    
-                     JSONArray usuarios = (JSONArray) jsonObj.get("Usuarios");
-                     Iterator<JSONObject> iterador = usuarios.iterator();
-                     while(iterador.hasNext()){
-                         JSONObject usuario = (JSONObject) iterador.next();
-                         long carnet = (long) usuario.get("Carnet");
-                         String nombre = (String) usuario.get("Nombre");
-                         String apellido = (String) usuario.get("Apellido");
-                         String carrera = (String) usuario.get("Carrera");
-                         String password = (String) usuario.get("Password");
-                         Usuario nuevo = new Usuario(carnet, nombre, apellido,
-                                 carrera, password);
-                         miTablaUsuarios.insertar(nuevo);
-                         System.out.println(carnet + nombre + 
-                                 apellido + carrera + password);
-                     }
-                }catch(Exception er){
+                    JSONObject jsonObj = (JSONObject) obj;
+
+                    JSONArray usuarios = (JSONArray) jsonObj.get("Usuarios");
+                    Iterator<JSONObject> iterador = usuarios.iterator();
+                    while (iterador.hasNext()) {
+                        JSONObject usuario = (JSONObject) iterador.next();
+                        long carnet = (long) usuario.get("Carnet");
+                        String nombre = (String) usuario.get("Nombre");
+                        String apellido = (String) usuario.get("Apellido");
+                        String carrera = (String) usuario.get("Carrera");
+                        String password = (String) usuario.get("Password");
+                        Usuario nuevo = new Usuario(carnet, nombre, apellido,
+                                carrera, password);
+                        miTablaUsuarios.insertar(nuevo);
+                        System.out.println(carnet + nombre
+                                + apellido + carrera + password);
+                    }
+                } catch (Exception er) {
                     JOptionPane.showMessageDialog(null, "Error, revisa tu documento. Especificacion: " + er.getMessage());
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, algo ha fallado");
         }
     }//GEN-LAST:event_btnRegistrarseActionPerformed
@@ -327,19 +324,19 @@ public class Login extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void placeHolders(){
+    private void placeHolders() {
         TextPrompt a = new TextPrompt("ID", txtUser);
         TextPrompt b = new TextPrompt("Password", txtPassword);
         TextPrompt c = new TextPrompt("Password", txtPassword1);
         TextPrompt d = new TextPrompt("ID", txtCarnet);
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         txtUser.setText("");
         txtPassword.setText("");
-        
+
     }
-    
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -394,7 +391,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
-    public void ingresoAdmin(){
+    public void ingreso() {
         Principal miPantalla = Principal.getSingletonInstance();
         miPantalla.setTitle("MENÚ");
         miPantalla.setResizable(false);

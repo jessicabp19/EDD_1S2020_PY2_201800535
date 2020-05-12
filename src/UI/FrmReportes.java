@@ -12,10 +12,17 @@ import javax.swing.ImageIcon;
 
 public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
-    private String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
+    private final String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
 
     public FrmReportes() {
         initComponents();
+        setSize(1000,600);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        try {
+            espera();
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -335,7 +342,7 @@ public class FrmReportes extends javax.swing.JFrame {
                         if (j == 0) {
                             writer.append("nodo" + i + "-> n" + i+j + ";\n");
                         } else {
-                            writer.append("n" + i+(j - 1) + "->n" + i + ";\n");
+                            writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
                         }
                         writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
                         j++;nodoAux = nodoAux.getSiguiente();

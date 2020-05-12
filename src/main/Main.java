@@ -1,5 +1,6 @@
 package main;
 import Estructuras.ArbolB;
+import Interfaces.ITree;
 import Archivos.BTree;
 import Objetos.*;
 
@@ -16,7 +17,9 @@ public class Main {
         ABBB.insertar(5);
         
         ABBB.recorridoNiveles();*/
+        
         new AAVariables();
+        
     }
 }
 

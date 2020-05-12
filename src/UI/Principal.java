@@ -33,7 +33,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuarios.png"))); // NOI18N
         btnUsuarios.setToolTipText("USUARIOS");
-        btnUsuarios.setBorder(null);
+        btnUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnUsuarios.setContentAreaFilled(false);
         btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuarios.setFocusable(false);
@@ -45,7 +45,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
         btnReportes.setToolTipText("REPORTES");
-        btnReportes.setBorder(null);
+        btnReportes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnReportes.setContentAreaFilled(false);
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setFocusable(false);
@@ -57,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/configuracion.png"))); // NOI18N
         btnConfiguracion.setToolTipText("CONFIGURACION");
-        btnConfiguracion.setBorder(null);
+        btnConfiguracion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnConfiguracion.setContentAreaFilled(false);
         btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfiguracion.setFocusable(false);
@@ -69,7 +69,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/libros.png"))); // NOI18N
         btnLibros.setToolTipText("LIBROS");
-        btnLibros.setBorder(null);
+        btnLibros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLibros.setContentAreaFilled(false);
         btnLibros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLibros.setFocusable(false);
@@ -81,7 +81,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnCatalogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/catalogo.png"))); // NOI18N
         btnCatalogo.setToolTipText("CATALOGO");
-        btnCatalogo.setBorder(null);
+        btnCatalogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCatalogo.setContentAreaFilled(false);
         btnCatalogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCatalogo.setFocusable(false);
@@ -104,64 +104,49 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(31, 31, 31)
                 .addComponent(btnUsuarios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addComponent(btnLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCatalogo)
                 .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
+                        .addGap(124, 124, 124)
                         .addComponent(btnReportes)
                         .addGap(57, 57, 57)
                         .addComponent(btnConfiguracion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnCerrarSesion)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 65, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLibros, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCatalogo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUsuarios, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(59, 59, 59)
+                    .addComponent(btnLibros)
+                    .addComponent(btnUsuarios)
+                    .addComponent(btnCatalogo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReportes)
-                    .addComponent(btnConfiguracion))
-                .addGap(20, 20, 20)
+                    .addComponent(btnConfiguracion)
+                    .addComponent(btnReportes))
+                .addGap(38, 38, 38)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        FrmUsuarios miPantalla = FrmUsuarios.getSingletonInstance();
+        FrmUsuarios miPantalla = new FrmUsuarios();//.getSingletonInstance();
         miPantalla.setTitle("USUARIOS");
         miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
@@ -169,9 +154,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        FrmReportes miPantalla = FrmReportes.getSingletonInstance();
+        FrmReportes miPantalla = new FrmReportes();//.getSingletonInstance();
         miPantalla.setTitle("REPORTES");
-        //miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
         miPantalla.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed

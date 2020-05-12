@@ -58,7 +58,7 @@ public class TablaHash {
 
     }
     
-    public boolean estaRegistrado(long carnet) {
+    public boolean carnetRegistrado(long carnet) {
         int posicion = funcionDispersion(carnet);
         NodoUsuarioLS aux = listaUsuarios[posicion].getCabeza();
         while (aux != null) {
@@ -70,17 +70,17 @@ public class TablaHash {
         return false;
     }
     
-    /*public boolean estaRegistrado(String user, String password) {
-        NodoCliente aux = getCabeza();
+    public boolean puedeAcceder(long carnet, String password) {
+        int posicion = funcionDispersion(carnet);
+        NodoUsuarioLS aux = listaUsuarios[posicion].getCabeza();
         while (aux != null) {
-            if (aux.getCliente().getUser().equals(user) && aux.getCliente().getPassword().equals(password)) {//||
-
+            if (aux.getUsuario().getCarnet() == carnet && aux.getUsuario().getPassword().equals(password)){
                 return true;
             }
             aux = aux.getSiguiente();
         }
         return false;
-    }*/
+    }
 
     public int funcionDispersion(long x) {
         return (int) x % getM();

@@ -9,6 +9,8 @@ public class AAVariables {
     public static Usuario miUsuarioLogueado;
     
     public AAVariables() {
+        Usuario defaultUser = new Usuario(123,"Admin","Encargado", "AdmonEmpresas", "123");
+        miTablaUsuarios.insertar(defaultUser);
         UsacLibrary miPantalla = new UsacLibrary();
         miPantalla.setVisible(true);
         miPantalla.setTitle("USAC LIBRARY");
