@@ -1,9 +1,19 @@
 package UI;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.swing.JOptionPane;
+import Estructuras.*;
+import static Objetos.AAVariables.miTablaUsuarios;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class FrmReportes extends javax.swing.JFrame {
-
     public static FrmReportes INSTANCE = null;
-    
+    private String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
+
     public FrmReportes() {
         initComponents();
     }
@@ -12,242 +22,216 @@ public class FrmReportes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        ImagenReporte = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panelPrincipal = new javax.swing.JPanel();
+        panelSuperior = new javax.swing.JPanel();
+        lbFotoReporte = new javax.swing.JLabel();
+        panelBtnsPrincipal = new javax.swing.JPanel();
+        lbEsp1 = new javax.swing.JLabel();
+        lbEsp2 = new javax.swing.JLabel();
+        lbEsp3 = new javax.swing.JLabel();
+        lbEsp4 = new javax.swing.JLabel();
+        panelBtnsSecundario = new javax.swing.JPanel();
+        btnArbolAVL = new javax.swing.JButton();
+        btnPreOrden = new javax.swing.JButton();
+        btnInOrden = new javax.swing.JButton();
+        btnPostOrden = new javax.swing.JButton();
+        btnArbolB = new javax.swing.JButton();
+        btnTablaDispersion = new javax.swing.JButton();
+        btnListaNodos = new javax.swing.JButton();
+        btnBlockChain = new javax.swing.JButton();
+        panelInferior = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
+        jScrollPanePanelCentral = new javax.swing.JScrollPane();
+        panelCentral = new javax.swing.JPanel();
+        lbImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        panelPrincipal.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("BankGothic Lt BT", 0, 36)); // NOI18N
-        jLabel1.setText("MENU");
+        panelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        panelSuperior.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        lbFotoReporte.setFont(new java.awt.Font("Century Gothic", 3, 18)); // NOI18N
+        lbFotoReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
+        lbFotoReporte.setText("Reportes");
+        panelSuperior.add(lbFotoReporte, java.awt.BorderLayout.LINE_START);
 
-        jButton1.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton1.setText("SUCURSALES");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        panelBtnsPrincipal.setBackground(new java.awt.Color(0, 204, 204));
+        panelBtnsPrincipal.setLayout(new java.awt.BorderLayout());
+
+        lbEsp1.setText("     ");
+        panelBtnsPrincipal.add(lbEsp1, java.awt.BorderLayout.PAGE_START);
+
+        lbEsp2.setText("          ");
+        panelBtnsPrincipal.add(lbEsp2, java.awt.BorderLayout.LINE_START);
+
+        lbEsp3.setText("     ");
+        panelBtnsPrincipal.add(lbEsp3, java.awt.BorderLayout.PAGE_END);
+
+        lbEsp4.setText("          ");
+        panelBtnsPrincipal.add(lbEsp4, java.awt.BorderLayout.LINE_END);
+
+        panelBtnsSecundario.setBackground(new java.awt.Color(0, 204, 204));
+        panelBtnsSecundario.setLayout(new java.awt.GridLayout(2, 4, 15, 15));
+
+        btnArbolAVL.setBackground(new java.awt.Color(204, 204, 204));
+        btnArbolAVL.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnArbolAVL.setText("ÁRBOL AVL");
+        btnArbolAVL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnArbolAVLActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnArbolAVL);
 
-        jButton2.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton2.setText("EMPLEADOS");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPreOrden.setBackground(new java.awt.Color(204, 204, 204));
+        btnPreOrden.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnPreOrden.setText("PRE ORDEN");
+        btnPreOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPreOrdenActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnPreOrden);
 
-        jButton3.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton3.setText("SALAS");
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnInOrden.setBackground(new java.awt.Color(204, 204, 204));
+        btnInOrden.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnInOrden.setText("IN ORDEN");
+        btnInOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnInOrdenActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnInOrden);
 
-        jButton4.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton4.setText("PELÍCULAS");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnPostOrden.setBackground(new java.awt.Color(204, 204, 204));
+        btnPostOrden.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnPostOrden.setText("POST ORDEN");
+        btnPostOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnPostOrdenActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnPostOrden);
 
-        jButton5.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton5.setText("ASIGNACION DE PELICULAS");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnArbolB.setBackground(new java.awt.Color(204, 204, 204));
+        btnArbolB.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnArbolB.setText("ÁRBOL B");
+        btnArbolB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnArbolBActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnArbolB);
 
-        jButton6.setFont(new java.awt.Font("BankGothic Lt BT", 0, 14)); // NOI18N
-        jButton6.setText("REPORTES");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnTablaDispersion.setBackground(new java.awt.Color(204, 204, 204));
+        btnTablaDispersion.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnTablaDispersion.setText("TABLA DISPERSIÓN");
+        btnTablaDispersion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnTablaDispersionActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnTablaDispersion);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 82, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addGap(18, 18, 18)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
-                .addContainerGap(137, Short.MAX_VALUE))
-        );
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        jButton9.setText("Volver");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnListaNodos.setBackground(new java.awt.Color(204, 204, 204));
+        btnListaNodos.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnListaNodos.setText("LISTA NODOS");
+        btnListaNodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnListaNodosActionPerformed(evt);
             }
         });
+        panelBtnsSecundario.add(btnListaNodos);
 
-        ImagenReporte.setBackground(new java.awt.Color(255, 255, 255));
-        ImagenReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btnBlockChain.setBackground(new java.awt.Color(204, 204, 204));
+        btnBlockChain.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnBlockChain.setText("BLOCKCHAIN");
+        btnBlockChain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlockChainActionPerformed(evt);
+            }
+        });
+        panelBtnsSecundario.add(btnBlockChain);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ImagenReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ImagenReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
-        );
+        panelBtnsPrincipal.add(panelBtnsSecundario, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        panelSuperior.add(panelBtnsPrincipal, java.awt.BorderLayout.CENTER);
+
+        panelPrincipal.add(panelSuperior, java.awt.BorderLayout.PAGE_START);
+
+        panelInferior.setBackground(new java.awt.Color(255, 51, 51));
+
+        btnVolver.setFont(new java.awt.Font("Century Gothic", 3, 12)); // NOI18N
+        btnVolver.setText("VOLVER");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        panelInferior.add(btnVolver);
+
+        panelPrincipal.add(panelInferior, java.awt.BorderLayout.PAGE_END);
+
+        panelCentral.setBackground(new java.awt.Color(255, 255, 255));
+        panelCentral.setLayout(new java.awt.BorderLayout());
+        panelCentral.add(lbImg, java.awt.BorderLayout.CENTER);
+
+        jScrollPanePanelCentral.setViewportView(panelCentral);
+
+        panelPrincipal.add(jScrollPanePanelCentral, java.awt.BorderLayout.CENTER);
+
+        jScrollPane1.setViewportView(panelPrincipal);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        /*FrmSucursal miPantalla= FrmSucursal.getSingletonInstance();
-        miPantalla.setTitle("SUCURSALES");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        /*FrmEmpleado miPantalla= FrmEmpleado.getSingletonInstance();
-        miPantalla.setTitle("EMPLEADOS");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        /*FrmSala miPantalla= FrmSala.getSingletonInstance();
-        miPantalla.setTitle("SALAS");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        /*FrmPelicula miPantalla= FrmPelicula.getSingletonInstance();
-        miPantalla.setTitle("PELICULAS");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        /*FrmAsignacionPeliculas miPantalla= FrmAsignacionPeliculas.getSingletonInstance();
-        miPantalla.setTitle("ASIGNACIÓN PELÍCULAS");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        /*Principal miPantalla = Principal.getSingletonInstance();
-        miPantalla.setTitle("REPORTES ESTRUCTURAS");
-        miPantalla.setResizable(false);
-        miPantalla.setLocationRelativeTo(null);
-        miPantalla.setVisible(true);*/
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnArbolAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolAVLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnArbolAVLActionPerformed
+
+    private void btnPreOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPreOrdenActionPerformed
+
+    private void btnInOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInOrdenActionPerformed
+
+    private void btnPostOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPostOrdenActionPerformed
+
+    private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnArbolBActionPerformed
+
+    private void btnTablaDispersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaDispersionActionPerformed
+        try {
+            espera();
+            imagen("TablaDispersion");
+            ver("TablaDispersion");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
+    }//GEN-LAST:event_btnTablaDispersionActionPerformed
+
+    private void btnListaNodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaNodosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaNodosActionPerformed
+
+    private void btnBlockChainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlockChainActionPerformed
+        // TODO add your handling code here:gifCargando.gif
+    }//GEN-LAST:event_btnBlockChainActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -287,18 +271,99 @@ public class FrmReportes extends javax.swing.JFrame {
         }
         return INSTANCE;
     }
-    
+
+    public void ver(String nombreImg) throws IOException {
+        String urlImagen=direccionProyecto+nombreImg+".png";
+        ImageIcon icon = new ImageIcon(ImageIO.read(new File(urlImagen)));
+        icon.getImage().flush();
+        lbImg.setIcon(icon);
+    }
+    public void espera() throws IOException {
+        String urlImagen=direccionProyecto+"gifCargando.gif";
+        ImageIcon icon = new ImageIcon(ImageIO.read(new File(urlImagen)));
+        icon.getImage().flush();
+        lbImg.setIcon(icon);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ImagenReporte;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton btnArbolAVL;
+    private javax.swing.JButton btnArbolB;
+    private javax.swing.JButton btnBlockChain;
+    private javax.swing.JButton btnInOrden;
+    private javax.swing.JButton btnListaNodos;
+    private javax.swing.JButton btnPostOrden;
+    private javax.swing.JButton btnPreOrden;
+    private javax.swing.JButton btnTablaDispersion;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPanePanelCentral;
+    private javax.swing.JLabel lbEsp1;
+    private javax.swing.JLabel lbEsp2;
+    private javax.swing.JLabel lbEsp3;
+    private javax.swing.JLabel lbEsp4;
+    private javax.swing.JLabel lbFotoReporte;
+    private javax.swing.JLabel lbImg;
+    private javax.swing.JPanel panelBtnsPrincipal;
+    private javax.swing.JPanel panelBtnsSecundario;
+    private javax.swing.JPanel panelCentral;
+    private javax.swing.JPanel panelInferior;
+    private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JPanel panelSuperior;
     // End of variables declaration//GEN-END:variables
+
+    public void imagen(String nombreReporte) {
+        try {
+            String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+            String fileInputPath = direccionProyecto+nombreReporte+".dot";
+            String fileOutputPath = direccionProyecto+nombreReporte+".png";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
+                bw.write("");bw.close();
+                PrintWriter writer = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
+                
+                writer.append("digraph D {\nrankdir=LR\nnode [fontname=\"Arial\"];\n");
+
+                int tamanio = miTablaUsuarios.getM(), group=1;
+                for (int i = 0; i < tamanio; i++) {
+                    ListaUsuarios listaAux = miTablaUsuarios.getUsuarios(i);int j = 0;
+                    if (i == 0) {writer.append("start-> nodo" + i + ";\n");
+                    }else {writer.append("nodo" + (i - 1) + "->nodo" + i + ";\n");}
+                    writer.append("nodo" + i + "[shape = record, style = rounded, label = \"INDICE " + i + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+
+                    NodoUsuarioLS nodoAux = listaAux.getCabeza();
+                    while (nodoAux != null) {
+                        if (j == 0) {
+                            writer.append("nodo" + i + "-> n" + i+j + ";\n");
+                        } else {
+                            writer.append("n" + i+(j - 1) + "->n" + i + ";\n");
+                        }
+                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+                        j++;nodoAux = nodoAux.getSiguiente();
+                    }
+                    group++;
+                }
+                writer.append("{rank = same; start;");
+                for (int i = 0; i < tamanio; i++) {
+                    writer.append("nodo"+i+";");
+                }
+                writer.append("}\n}\n");writer.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+
+            String tParam = "-Tjpg";
+            String tOParam = "-o";
+            String[] cmd = new String[5];
+            cmd[0] = dotPath;
+            cmd[1] = tParam;
+            cmd[2] = fileInputPath;
+            cmd[3] = tOParam;
+            cmd[4] = fileOutputPath;
+            Runtime rt = Runtime.getRuntime();
+            rt.exec(cmd);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

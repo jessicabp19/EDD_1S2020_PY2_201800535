@@ -5,7 +5,7 @@ import Objetos.*;
 
 public class Main {
     public static void main(String[] args){
-        ArbolB ABBB = new ArbolB(5, "Suspenso");
+        /*ArbolB ABBB = new ArbolB(5, "Suspenso");
         BTree bt = new BTree();
         bt.add(10);
         bt.add(8);
@@ -15,7 +15,7 @@ public class Main {
         ABBB.insertar(8);
         ABBB.insertar(5);
         
-        ABBB.recorridoNiveles();
+        ABBB.recorridoNiveles();*/
         new AAVariables();
     }
 }
