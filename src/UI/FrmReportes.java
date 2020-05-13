@@ -7,12 +7,16 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 import Estructuras.*;
 import static Objetos.AAVariables.miTablaUsuarios;
+import Objetos.GraphvizJava;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
     private final String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
+    private GraphvizJava graficador = new GraphvizJava();
+    String fileInputPath = "";
+    String fileOutputPath = "";
 
     public FrmReportes() {
         initComponents();
@@ -225,6 +229,10 @@ public class FrmReportes extends javax.swing.JFrame {
         try {
             espera();
             imagen("TablaDispersion");
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            espera();
+            espera();
+            espera();
             ver("TablaDispersion");
         } catch (IOException e) {
             System.out.println("EXCEPTION");
@@ -320,9 +328,11 @@ public class FrmReportes extends javax.swing.JFrame {
 
     public void imagen(String nombreReporte) {
         try {
-            String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
-            String fileInputPath = direccionProyecto+nombreReporte+".dot";
-            String fileOutputPath = direccionProyecto+nombreReporte+".png";
+            //String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+            //String 
+            fileInputPath = direccionProyecto+nombreReporte+".dot";
+            //String 
+            fileOutputPath = direccionProyecto+nombreReporte+".png";
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
                 bw.write("");bw.close();
@@ -358,16 +368,40 @@ public class FrmReportes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ERROR");
             }
 
-            String tParam = "-Tjpg";
+            /*String tParam = "-Tjpg";
             String tOParam = "-o";
-            String[] cmd = new String[5];
+            *String[] cmd = new String[5];
             cmd[0] = dotPath;
             cmd[1] = tParam;
             cmd[2] = fileInputPath;
             cmd[3] = tOParam;
+            cmd[4] = fileOutputPath;*
+            
+            String[] cmd = new String[5];
+            cmd[0] = "dot";
+            cmd[1] = tParam;
+            cmd[2] = fileInputPath;
+            cmd[3] = tOParam;
             cmd[4] = fileOutputPath;
+            
             Runtime rt = Runtime.getRuntime();
-            rt.exec(cmd);
+            rt.exec(cmd);*/
+            
+            /*try
+		{       
+			ProcessBuilder pbuilder;
+		    
+			/*
+			 * Realiza la construccion del comando    
+			 * en la linea de comandos esto es: 
+			 * dot -Tpng -o archivo.png archivo.dot
+			 **
+			pbuilder = new ProcessBuilder( "dot", "-Tpng", "-o", fileOutputPath, fileInputPath );
+			pbuilder.redirectErrorStream( true );
+			//Ejecuta el proceso
+			pbuilder.start();
+		    
+		} catch (Exception e) { e.printStackTrace(); }*/
         } catch (Exception ex) {
             ex.printStackTrace();
         }

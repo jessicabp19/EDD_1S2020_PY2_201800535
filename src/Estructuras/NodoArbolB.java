@@ -2,7 +2,6 @@ package Estructuras;
 import Objetos.Libro;
 
 public class NodoArbolB {
-    //private String categoria;
     private Libro[] libros;
     private NodoArbolB[] hijos;
     private int M;

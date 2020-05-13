@@ -108,7 +108,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnUsuarios)
                 .addGap(58, 58, 58)
                 .addComponent(btnLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(btnCatalogo)
                 .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -121,7 +121,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnCerrarSesion)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnLibros)
                     .addComponent(btnUsuarios)
                     .addComponent(btnCatalogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfiguracion)
                     .addComponent(btnReportes))
@@ -169,9 +169,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibrosActionPerformed
-        FrmLibros miPantalla = FrmLibros.getSingletonInstance();
+        FrmMisLibros miPantalla = FrmMisLibros.getSingletonInstance();
         miPantalla.setTitle("LIBROS");
-        miPantalla.setResizable(false);
+        //miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
         miPantalla.setVisible(true);
         /*Añadir masivamente, individualmete, eliminar y buscar*/
@@ -180,7 +180,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatalogoActionPerformed
         FrmCatalogo miPantalla = FrmCatalogo.getSingletonInstance();
         miPantalla.setTitle("CATALOGO");
-        miPantalla.setResizable(false);
+        //miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
         miPantalla.setVisible(true);
         /*Crear categoria, eliminar categoria y ver libros por categoria*/
