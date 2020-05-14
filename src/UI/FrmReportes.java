@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 import Estructuras.*;
-import static Objetos.AAVariables.miTablaUsuarios;
+import static Objetos.AAVariables.*;
 import Objetos.GraphvizJava;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -15,6 +15,7 @@ public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
     private final String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
     private GraphvizJava graficador = new GraphvizJava();
+    PrintWriter avlWriter;
     String fileInputPath = "";
     String fileOutputPath = "";
 
@@ -206,7 +207,17 @@ public class FrmReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnArbolAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolAVLActionPerformed
-        // TODO add your handling code here:
+        try {
+            espera();
+            dibujarArbolAVL("ArbolAVL");
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            espera();
+            espera();
+            espera();
+            ver("ArbolAVL");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }//GEN-LAST:event_btnArbolAVLActionPerformed
 
     private void btnPreOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrdenActionPerformed
@@ -222,13 +233,23 @@ public class FrmReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPostOrdenActionPerformed
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
-        // TODO add your handling code here:
+        try {
+            espera();
+            dibujarArbolB("ArbolB");
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            espera();
+            espera();
+            espera();
+            ver("ArbolB");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }//GEN-LAST:event_btnArbolBActionPerformed
 
     private void btnTablaDispersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaDispersionActionPerformed
         try {
             espera();
-            imagen("TablaDispersion");
+            dibujarTabla("TablaDispersion");
             graficador.dibujar(fileInputPath, fileOutputPath);
             espera();
             espera();
@@ -326,12 +347,9 @@ public class FrmReportes extends javax.swing.JFrame {
     private javax.swing.JPanel panelSuperior;
     // End of variables declaration//GEN-END:variables
 
-    public void imagen(String nombreReporte) {
+    public void dibujarTabla(String nombreReporte) {
         try {
-            //String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
-            //String 
             fileInputPath = direccionProyecto+nombreReporte+".dot";
-            //String 
             fileOutputPath = direccionProyecto+nombreReporte+".png";
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
@@ -367,44 +385,140 @@ public class FrmReportes extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR");
             }
-
-            /*String tParam = "-Tjpg";
-            String tOParam = "-o";
-            *String[] cmd = new String[5];
-            cmd[0] = dotPath;
-            cmd[1] = tParam;
-            cmd[2] = fileInputPath;
-            cmd[3] = tOParam;
-            cmd[4] = fileOutputPath;*
-            
-            String[] cmd = new String[5];
-            cmd[0] = "dot";
-            cmd[1] = tParam;
-            cmd[2] = fileInputPath;
-            cmd[3] = tOParam;
-            cmd[4] = fileOutputPath;
-            
-            Runtime rt = Runtime.getRuntime();
-            rt.exec(cmd);*/
-            
-            /*try
-		{       
-			ProcessBuilder pbuilder;
-		    
-			/*
-			 * Realiza la construccion del comando    
-			 * en la linea de comandos esto es: 
-			 * dot -Tpng -o archivo.png archivo.dot
-			 **
-			pbuilder = new ProcessBuilder( "dot", "-Tpng", "-o", fileOutputPath, fileInputPath );
-			pbuilder.redirectErrorStream( true );
-			//Ejecuta el proceso
-			pbuilder.start();
-		    
-		} catch (Exception e) { e.printStackTrace(); }*/
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    public void dibujarArbolB(String nombreReporte) {
+        try {
+            fileInputPath = direccionProyecto+nombreReporte+".dot";
+            fileOutputPath = direccionProyecto+nombreReporte+".png";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
+                bw.write("");bw.close();
+                PrintWriter writer = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
+                
+                writer.append("digraph D {\nrankdir=LR\nnode [fontname=\"Arial\"];\n");
+
+                
+                
+                /*int tamanio = miTablaUsuarios.getM(), group=1;
+                for (int i = 0; i < tamanio; i++) {
+                    ListaUsuarios listaAux = miTablaUsuarios.getUsuarios(i);int j = 0;
+                    if (i == 0) {writer.append("start-> nodo" + i + ";\n");
+                    }else {writer.append("nodo" + (i - 1) + "->nodo" + i + ";\n");}
+                    writer.append("nodo" + i + "[shape = record, style = rounded, label = \"INDICE " + i + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+
+                    NodoUsuarioLS nodoAux = listaAux.getCabeza();
+                    while (nodoAux != null) {
+                        if (j == 0) {
+                            writer.append("nodo" + i + "-> n" + i+j + ";\n");
+                        } else {
+                            writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
+                        }
+                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+                        j++;nodoAux = nodoAux.getSiguiente();
+                    }
+                    group++;
+                }
+                writer.append("{rank = same; start;");
+                for (int i = 0; i < tamanio; i++) {
+                    writer.append("nodo"+i+";");
+                }*/
+                writer.append("}\n}\n");writer.close();
+                
+                
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+//    public void nodosArbol(Btree arbol, int n){
+//        if (arbol != null){
+//            //grafo.append(arbol->nomJug + "[label = \"" + arbol->nomJug + "\"];\n");
+//            //nodosArbol(arbol->izq, 0);nodosArbol(arbol->der, 0);
+//        }
+//    }
+//    
+//    public BTreeNode search(int k) {
+//        if (t.root == null) {
+//            return null;
+//        } else {
+//            return t.root.search(k);
+//        }
+//    }
+    
+    public void dibujarArbolAVL(String nombreReporte) {
+        try {
+            fileInputPath = direccionProyecto+nombreReporte+".dot";
+            fileOutputPath = direccionProyecto+nombreReporte+".png";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
+                bw.write("");bw.close();
+                avlWriter = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
+                
+                
+                avlWriter.append("digraph G {");
+                nodosArbol(miArbolAVLCategorias.obtenerRaiz());
+                lineasArbol(miArbolAVLCategorias.obtenerRaiz());
+                avlWriter.append("}");
+                
+                
+                /*writer.append("digraph D {\nrankdir=LR\nnode [fontname=\"Arial\"];\n");
+
+                int tamanio = miTablaUsuarios.getM(), group=1;
+                for (int i = 0; i < tamanio; i++) {
+                    ListaUsuarios listaAux = miTablaUsuarios.getUsuarios(i);int j = 0;
+                    if (i == 0) {writer.append("start-> nodo" + i + ";\n");
+                    }else {writer.append("nodo" + (i - 1) + "->nodo" + i + ";\n");}
+                    writer.append("nodo" + i + "[shape = record, style = rounded, label = \"INDICE " + i + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+
+                    NodoUsuarioLS nodoAux = listaAux.getCabeza();
+                    while (nodoAux != null) {
+                        if (j == 0) {
+                            writer.append("nodo" + i + "-> n" + i+j + ";\n");
+                        } else {
+                            writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
+                        }
+                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+                        j++;nodoAux = nodoAux.getSiguiente();
+                    }
+                    group++;
+                }
+                writer.append("{rank = same; start;");
+                for (int i = 0; i < tamanio; i++) {
+                    writer.append("nodo"+i+";");
+                }
+                writer.append("}\n}\n");*/
+                avlWriter.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void nodosArbol(NodoArbolAVL arbol){
+    if (arbol != null){
+        avlWriter.append(arbol.getCategoria().getNomCategoria() + "[label = \"" + arbol.getCategoria().getNomCategoria() + "\"];\n");
+        nodosArbol(arbol.getHijoIzquierdo());nodosArbol(arbol.getHijoDerecho());
+    }
+    }
+    private void lineasArbol(NodoArbolAVL arbol){
+    if (arbol != null){
+        if (arbol.getHijoDerecho() != null) {
+            avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoDerecho().getCategoria().getNomCategoria() + ";\n");
+        }
+        if (arbol.getHijoIzquierdo() != null) {
+            avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoIzquierdo().getCategoria().getNomCategoria() + ";\n");
+        }
+        lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
+    }
+    }
 }

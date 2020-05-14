@@ -1,8 +1,9 @@
-package UI;
+package Archivos;
 /**
  *
  * @author Monkeyelgrande
  */
+import UI.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

@@ -325,10 +325,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void placeHolders() {
-        TextPrompt a = new TextPrompt("ID", txtUser);
+        /*TextPrompt a = new TextPrompt("ID", txtUser);
         TextPrompt b = new TextPrompt("Password", txtPassword);
         TextPrompt c = new TextPrompt("Password", txtPassword1);
-        TextPrompt d = new TextPrompt("ID", txtCarnet);
+        TextPrompt d = new TextPrompt("ID", txtCarnet);*/
     }
 
     private void limpiar() {
