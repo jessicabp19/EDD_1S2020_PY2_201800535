@@ -1,6 +1,6 @@
 package Objetos;
 public class Libro {
-    private int ISBN;
+    private Integer ISBN;
     private String titulo;
     private String autor;
     private String editorial;
@@ -37,7 +37,7 @@ public class Libro {
         this.carneUsuario=carneUsuario;//JMM
     }
 
-    public int getISBN() {
+    public Integer getISBN() {
         return ISBN;
     }
 

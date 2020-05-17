@@ -10,7 +10,8 @@ public class AAVariables {
     public static TablaHash miTablaUsuarios = new TablaHash(45);
     public static Usuario miUsuarioLogueado;
     public static ArbolAVL miArbolAVLCategorias = new ArbolAVL();
-    public static Btree miArbolBActual;
+    public static ArbolB miArbolBActual;// = new ArbolB(5);
+    public static Btree miArbolActual;
     public static Btree t = new Btree(3);
 
     public AAVariables() {
@@ -21,9 +22,9 @@ public class AAVariables {
         miPantalla.setTitle("USAC LIBRARY");
         miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
-        pruebas();
-        pruebasAVL();
-        pruebasMiArbolB();
+        //pruebas();
+        //pruebasAVL();
+        //pruebasMiArbolB();
     }
 
     public void pruebas() {
