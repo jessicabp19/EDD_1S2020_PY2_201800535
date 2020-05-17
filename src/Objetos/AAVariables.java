@@ -3,6 +3,7 @@ package Objetos;
 import UI.UsacLibrary;
 import Estructuras.*;
 import Objetos.*;
+import Archivos.BTree;
 
 public class AAVariables {
 
@@ -22,6 +23,7 @@ public class AAVariables {
         miPantalla.setLocationRelativeTo(null);
         pruebas();
         pruebasAVL();
+        pruebasMiArbolB();
     }
 
     public void pruebas() {
@@ -78,6 +80,19 @@ public class AAVariables {
         aux=t.search(26);
         System.out.println(aux.getN()+" - "+aux.getKeys().length +" - "+aux.isLeaf());
         
+        int k = 6;
+        if(t.search(k) != null){
+            System.out.println("\nPresent");
+        }else{
+            System.out.println("\nNot Present");
+        }
+
+        k = 15;
+        if(t.search(k) != null){
+            System.out.println("\nPresent");
+        }else{
+            System.out.println("\nNot Present");
+        }
         
         /*t.remove(6);
         System.out.println("\nTraversal of tree constructed r6\n");
@@ -106,33 +121,56 @@ public class AAVariables {
     }
     
     public void pruebasAVL(){
-        ArbolB b1 = new ArbolB(5, "Bonito");
+        ArbolB b1 = new ArbolB(5);
         Categoria c1 = new Categoria("Bonito", b1, 201800535);
         miArbolAVLCategorias.insertar(c1);
         
-        ArbolB b2 = new ArbolB(5, "Lirico");
+        ArbolB b2 = new ArbolB(5);
         Categoria c2 = new Categoria("Lirico", b2, 201800535);
         miArbolAVLCategorias.insertar(c2);
         
-        ArbolB b3 = new ArbolB(5, "U");
+        ArbolB b3 = new ArbolB(5);
         Categoria c3 = new Categoria("U", b3, 201800535);
         miArbolAVLCategorias.insertar(c3);
         
-        ArbolB b11 = new ArbolB(5, "AA");
+        ArbolB b11 = new ArbolB(5);
         Categoria c11 = new Categoria("AA", b11, 201800535);
         miArbolAVLCategorias.insertar(c11);
         
-        ArbolB b21 = new ArbolB(5, "CC");
+        ArbolB b21 = new ArbolB(5);
         Categoria c21 = new Categoria("CC", b21, 201800535);
         miArbolAVLCategorias.insertar(c21);
         
-        ArbolB b31 = new ArbolB(5, "W");
+        ArbolB b31 = new ArbolB(5);
         Categoria c31 = new Categoria("W", b31, 201800535);
         miArbolAVLCategorias.insertar(c31);
         
-        ArbolB b311 = new ArbolB(5, "V");
+        ArbolB b311 = new ArbolB(5);
         Categoria c311 = new Categoria("V", b311, 201800535);
         miArbolAVLCategorias.insertar(c311);
+    }
+    
+    public void pruebasMiArbolB(){
+        ArbolB ABBB = new ArbolB(5);
+        ABBB.insertar(10);
+        ABBB.insertar(8);
+        ABBB.insertar(5);
+        
+        ABBB.recorridoNiveles();
+        
+        BTree bt = new BTree();
+        BTree bt1;
+        
+        /*BTree<Libro> bt2 = new BTree<Libro>();
+        bt.toCollection();
+        BTree<String> arbol1 = new BTree<>();
+        BTree<Usuario> arbol2 = new BTree<>();
+        BTree<Libro> arbol3 = new BTree<>();
+        BTree<Categoria> arbol = new BTree<>();*/
+        bt.add(10);
+        bt.add(8);
+        bt.add(5);
+        
     }
 
 }

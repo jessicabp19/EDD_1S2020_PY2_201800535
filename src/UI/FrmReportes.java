@@ -1,15 +1,14 @@
 package UI;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import javax.swing.JOptionPane;
 import Estructuras.*;
 import static Objetos.AAVariables.*;
 import Objetos.GraphvizJava;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import  java.math.BigInteger;
+import java.security.MessageDigest;//Sha256
+import java.security.NoSuchAlgorithmException;
 
 public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
@@ -18,6 +17,7 @@ public class FrmReportes extends javax.swing.JFrame {
     PrintWriter avlWriter;
     String fileInputPath = "";
     String fileOutputPath = "";
+    ListaSimple PreOrden, InOrden, PostOrden;
 
     public FrmReportes() {
         initComponents();
@@ -208,12 +208,9 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnArbolAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolAVLActionPerformed
         try {
-            espera();
             dibujarArbolAVL("ArbolAVL");
             graficador.dibujar(fileInputPath, fileOutputPath);
-            espera();
-            espera();
-            espera();
+            esperar();
             ver("ArbolAVL");
         } catch (IOException e) {
             System.out.println("EXCEPTION");
@@ -221,25 +218,49 @@ public class FrmReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArbolAVLActionPerformed
 
     private void btnPreOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrdenActionPerformed
-        // TODO add your handling code here:
+        try {
+            PreOrden=new ListaSimple();
+            preOrden(miArbolAVLCategorias.obtenerRaiz());
+            dibujarRecorrido("PreOrden", PreOrden);
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            esperar();
+            ver("PreOrden");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }//GEN-LAST:event_btnPreOrdenActionPerformed
 
     private void btnInOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInOrdenActionPerformed
-        // TODO add your handling code here:
+        try {
+            InOrden=new ListaSimple();
+            inOrden(miArbolAVLCategorias.obtenerRaiz());
+            dibujarRecorrido("InOrden", InOrden);
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            esperar();
+            ver("InOrden");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }//GEN-LAST:event_btnInOrdenActionPerformed
 
     private void btnPostOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostOrdenActionPerformed
-        // TODO add your handling code here:
+        try {
+            PostOrden=new ListaSimple();
+            postOrden(miArbolAVLCategorias.obtenerRaiz());
+            dibujarRecorrido("PostOrden", PostOrden);
+            graficador.dibujar(fileInputPath, fileOutputPath);
+            esperar();
+            ver("PostOrden");
+        } catch (IOException e) {
+            System.out.println("EXCEPTION");
+        }
     }//GEN-LAST:event_btnPostOrdenActionPerformed
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
         try {
-            espera();
             dibujarArbolB("ArbolB");
             graficador.dibujar(fileInputPath, fileOutputPath);
-            espera();
-            espera();
-            espera();
+            esperar();
             ver("ArbolB");
         } catch (IOException e) {
             System.out.println("EXCEPTION");
@@ -248,12 +269,9 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnTablaDispersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaDispersionActionPerformed
         try {
-            espera();
             dibujarTabla("TablaDispersion");
             graficador.dibujar(fileInputPath, fileOutputPath);
-            espera();
-            espera();
-            espera();
+            esperar();
             ver("TablaDispersion");
         } catch (IOException e) {
             System.out.println("EXCEPTION");
@@ -320,6 +338,15 @@ public class FrmReportes extends javax.swing.JFrame {
         icon.getImage().flush();
         lbImg.setIcon(icon);
     }
+    
+    public void esperar () {
+        try {
+            espera();
+            Thread.sleep (500);
+        } catch (Exception e) {
+            // Mensaje en caso de que falle
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArbolAVL;
@@ -372,7 +399,10 @@ public class FrmReportes extends javax.swing.JFrame {
                         } else {
                             writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
                         }
-                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
+                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getCarnet() 
+                                + " | " + nodoAux.getUsuario().getNombre() 
+                                + " | " + getMD5(nodoAux.getUsuario().getPassword()) 
+                                + "\", group = "+ group +", fillcolor = lavenderblush];\n");
                         j++;nodoAux = nodoAux.getSiguiente();
                     }
                     group++;
@@ -390,6 +420,7 @@ public class FrmReportes extends javax.swing.JFrame {
         }
     }
 
+    
     public void dibujarArbolB(String nombreReporte) {
         try {
             fileInputPath = direccionProyecto+nombreReporte+".dot";
@@ -438,20 +469,6 @@ public class FrmReportes extends javax.swing.JFrame {
         }
     }
     
-//    public void nodosArbol(Btree arbol, int n){
-//        if (arbol != null){
-//            //grafo.append(arbol->nomJug + "[label = \"" + arbol->nomJug + "\"];\n");
-//            //nodosArbol(arbol->izq, 0);nodosArbol(arbol->der, 0);
-//        }
-//    }
-//    
-//    public BTreeNode search(int k) {
-//        if (t.root == null) {
-//            return null;
-//        } else {
-//            return t.root.search(k);
-//        }
-//    }
     
     public void dibujarArbolAVL(String nombreReporte) {
         try {
@@ -503,7 +520,6 @@ public class FrmReportes extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
     private void nodosArbol(NodoArbolAVL arbol){
     if (arbol != null){
         avlWriter.append(arbol.getCategoria().getNomCategoria() + "[label = \"" + arbol.getCategoria().getNomCategoria() + "\"];\n");
@@ -520,5 +536,74 @@ public class FrmReportes extends javax.swing.JFrame {
         }
         lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
     }
+    }
+
+    
+    private void dibujarRecorrido(String nombreReporte, ListaSimple lista){
+        try {
+            fileInputPath = direccionProyecto+nombreReporte+".dot";
+            fileOutputPath = direccionProyecto+nombreReporte+".png";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
+                bw.write("");bw.close();
+                PrintWriter writer = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
+                
+                writer.append("digraph D {\nstart[shape = box style = rounded label = \"Primero\"];\n");
+                NodoLS aux=lista.getCabeza();
+                int i=0;
+                while(aux!=null){
+                    if (i == 0) {
+                        writer.append("start-> nodo" + i + ";\n");
+                    } else {
+                        writer.append("nodo" + (i - 1) + "->" + "nodo" + i + ";\n");
+                    }
+                    writer.append("nodo" + i + "[shape = record style = rounded label = \"" + aux.getNombre() + "\"];\n");
+                    aux = aux.getSiguiente();
+                    i++;
+                }
+                writer.append("nodo" + (i - 1) + "->" + "end;\n");
+                writer.append("end[shape = none label = \"null\"];\n");
+                
+                writer.append("}\n");writer.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void preOrden(NodoArbolAVL arbol){
+    if (arbol != null){
+        PreOrden.insertarUltimo(arbol.getCategoria().getNomCategoria());
+        preOrden(arbol.getHijoIzquierdo());
+        preOrden(arbol.getHijoDerecho());
+    }}
+    private void inOrden(NodoArbolAVL arbol){
+    if (arbol != null){
+        inOrden(arbol.getHijoIzquierdo());
+        InOrden.insertarUltimo(arbol.getCategoria().getNomCategoria());
+        inOrden(arbol.getHijoDerecho());
+    }}
+    private void postOrden(NodoArbolAVL arbol){
+    if (arbol != null){
+        postOrden(arbol.getHijoIzquierdo());
+        postOrden(arbol.getHijoDerecho());
+        PostOrden.insertarUltimo(arbol.getCategoria().getNomCategoria());
+    }}
+    
+    private String getMD5(String password){
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte [] messageDigest = md.digest(password.getBytes());
+            BigInteger numero = new BigInteger(1, messageDigest);
+            String hashText = numero.toString(16);
+            
+            while(hashText.length() < 32){
+                hashText = "0" + hashText;
+            }
+            return hashText;
+        }catch(NoSuchAlgorithmException e){
+            throw new RuntimeException(e);
+        }
     }
 }

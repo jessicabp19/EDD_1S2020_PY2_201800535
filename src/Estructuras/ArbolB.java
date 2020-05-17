@@ -7,17 +7,14 @@ public class ArbolB {
 
     private NodoArbolB raiz;
     private int M;
-    private String categoria;
     private boolean soloIngresar = true;
 
     //CONSTRUCTORES
     public ArbolB() {
     }
-
-    public ArbolB(int M, String categoria) {
-        this.raiz = new NodoArbolB(M);
+    public ArbolB(int M) {
+        this.raiz= new NodoArbolB(M, true);//=null;//
         this.M = M;
-        this.categoria = categoria;
     }
 
     //INSERTAR
@@ -61,7 +58,7 @@ public class ArbolB {
 
     public boolean contieneClave(NodoArbolB arbol, int isbn) {
         for (int i = 0; i < M - 1; i++) {
-            if (arbol.getLibro(i) != null) {
+            if (arbol != null && arbol.getLibro(i) != null) {
                 if (arbol.getLibro(i).getISBN() == isbn) {
                     return true;
                 }

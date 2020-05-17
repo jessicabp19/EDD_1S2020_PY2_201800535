@@ -55,7 +55,25 @@ public class TablaHash {
     }
 
     public void eliminar(long x) {
-
+        int posicion = funcionDispersion(x);
+//        NodoUsuarioLS aux = listaUsuarios[posicion].getCabeza();
+//        while (aux != null) {
+//            if (aux.getUsuario().getCarnet() == x){//.equals(user) && aux.getCliente().getPassword().equals(password)) {//||
+//                //return aux;
+//            }
+//            aux = aux.getSiguiente();
+//        }
+        
+         listaUsuarios[posicion].eliminar(x);
+         setN(getN() - 1);
+        
+        //int posicion = funcionDispersion(user.getCarnet());
+//        if (posicion >= 0 && posicion < m) {
+//            listaUsuarios[posicion].insertarUltimo(user);
+//            setN(getN() + 1);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Atención, el carnet porporcionado no es valido", "ATENCIÓN", 0);
+//        }
     }
     
     public boolean carnetRegistrado(long carnet) {

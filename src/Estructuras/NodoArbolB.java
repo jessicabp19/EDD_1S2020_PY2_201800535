@@ -2,23 +2,21 @@ package Estructuras;
 import Objetos.Libro;
 
 public class NodoArbolB {
-    private Libro[] libros;
-    private NodoArbolB[] hijos;
-    private int M;
+    private Libro[] libros;//CLAVES
+    private NodoArbolB[] hijos;//HIJOS
+    private int M;//Max número de hijos
+    private int n;//Número actual de claves en el nodo
+    private boolean leaf;//Boleano que indica si es hoja 
     
     public NodoArbolB(){}
     
-    public NodoArbolB(int M){//,String categoria
-        //this.categoria=categoria;
-        libros = new Libro[M-1];
-        hijos = new NodoArbolB[M]; 
+    public NodoArbolB(int M, boolean leaf){
         this.M=M;
+        this.leaf=leaf;
+        this.libros = new Libro[M-1];
+        this.hijos = new NodoArbolB[M]; 
+        this.n=0;
     }
-
-    /*public String getCategoria() {return categoria;}
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }*/
     
     public Libro getLibro(int pos) {return libros[pos];}
     public void setLibro(int pos, Libro libro) {

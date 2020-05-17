@@ -8,7 +8,7 @@
  * Cada instancia de la aplicacion debe estar siempre escuchando para recibir nueva info, ¿Por donde? Por el puerto que le indiquemos
  * El socket debe estar en un hilo para escuchar todo el tiempo
 */
-package Estructuras;
+package ClasesBlockchain;
 
 
 public class NodoInstanciaLS {

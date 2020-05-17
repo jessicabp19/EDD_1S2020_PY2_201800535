@@ -340,6 +340,18 @@ public class FrmUsuarios extends javax.swing.JFrame {
         } catch (Exception ed) {
             JOptionPane.showMessageDialog(null, "Dato no Válido " + ed.getMessage());
         }*/
+        int n = JOptionPane.showConfirmDialog(null, "Esta acción eliminará su cuenta ¿Desea Continuar?", "ATENCIÓN", 0);
+        if (n == JOptionPane.YES_OPTION) {
+            miTablaUsuarios.eliminar(miUsuarioLogueado.getCarnet());
+            this.dispose();
+            Principal miPantalla = Principal.getSingletonInstance();
+            miPantalla.setTitle("MENÚ");
+            miPantalla.setResizable(false);
+            miPantalla.setLocationRelativeTo(null);
+            miPantalla.setVisible(true);
+            miPantalla.dispose();
+            JOptionPane.showMessageDialog(null, "Eliminación Exitosa");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -352,7 +364,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
                 } else if (miTablaUsuarios.carnetRegistrado(carnet)) {
                     JOptionPane.showMessageDialog(null, "Ese número de carnet ya esta registrado", "ATENCIÓN", 1);
                 } else {
-                    Usuario user = new Usuario(carnet, txtNombre1.getText(),txtApellido1.getText(),txtCarrera1.getText(), txtContrasenia1.getText());
+                    Usuario user = new Usuario(carnet, txtNombre1.getText(), txtApellido1.getText(), txtCarrera1.getText(), txtContrasenia1.getText());
                     //Usuario user = new Usuario(carnet, txtNombre.getText(),txtApellido.getText(),txtCarrera.getText(), txtContrasenia.getText());
                     miTablaUsuarios.insertar(user);
                     JOptionPane.showMessageDialog(null, "Registro Exitoso!", "Completado", 1);
@@ -435,15 +447,15 @@ public class FrmUsuarios extends javax.swing.JFrame {
                 } else if (miTablaUsuarios.carnetRegistrado(carnet)) {
                     JOptionPane.showMessageDialog(null, "Ese número de carnet ya esta registrado", "ATENCIÓN", 1);
                 } else {*/
-                    //Usuario user = new Usuario(carnet, txtNombre1.getText(),txtApellido1.getText(),txtCarrera1.getText(), txtContrasenia1.getText());
-                    //Usuario user = new Usuario(carnet, txtNombre.getText(),txtApellido.getText(),txtCarrera.getText(), txtContrasenia.getText());
-                    //miTablaUsuarios.insertar(user);
-                    miUsuarioLogueado.setNombre(txtNombre.getText());
-                    miUsuarioLogueado.setApellido(txtApellido.getText());
-                    miUsuarioLogueado.setCarrera(txtCarrera.getText());
-                    miUsuarioLogueado.setPassword(txtContrasenia.getText());
-                    JOptionPane.showMessageDialog(null, "Modificación Exitosa!", "Completado", 1);
-                    //miListaProductos.mostrarTabla(tablaProductos);
+                //Usuario user = new Usuario(carnet, txtNombre1.getText(),txtApellido1.getText(),txtCarrera1.getText(), txtContrasenia1.getText());
+                //Usuario user = new Usuario(carnet, txtNombre.getText(),txtApellido.getText(),txtCarrera.getText(), txtContrasenia.getText());
+                //miTablaUsuarios.insertar(user);
+                miUsuarioLogueado.setNombre(txtNombre.getText());
+                miUsuarioLogueado.setApellido(txtApellido.getText());
+                miUsuarioLogueado.setCarrera(txtCarrera.getText());
+                miUsuarioLogueado.setPassword(txtContrasenia.getText());
+                JOptionPane.showMessageDialog(null, "Modificación Exitosa!", "Completado", 1);
+                //miListaProductos.mostrarTabla(tablaProductos);
                 //}
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debes ingresar un número en 'Carnet'");
@@ -488,11 +500,11 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }
 
     public static FrmUsuarios getSingletonInstance() {
-        
+
         if (INSTANCE == null) {
             INSTANCE = new FrmUsuarios();
         }
-        
+
         return INSTANCE;
     }
 
@@ -547,7 +559,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     public void limpiar() {
         txtCarnet1.setText("");
         txtNombre1.setText("");
@@ -555,9 +567,9 @@ public class FrmUsuarios extends javax.swing.JFrame {
         txtCarrera1.setText("");
         txtContrasenia1.setText("");
     }
-    
+
     public void infoUsuario() {
-        txtCarnet.setText(""+miUsuarioLogueado.getCarnet());
+        txtCarnet.setText("" + miUsuarioLogueado.getCarnet());
         txtNombre.setText(miUsuarioLogueado.getNombre());
         txtApellido.setText(miUsuarioLogueado.getApellido());
         txtCarrera.setText(miUsuarioLogueado.getCarrera());

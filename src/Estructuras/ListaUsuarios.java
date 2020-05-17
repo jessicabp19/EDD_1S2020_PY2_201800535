@@ -32,6 +32,33 @@ public class ListaUsuarios {
         }
         this.setTamanio(this.getTamanio() + 1);//Esta afuera, por que en ambos casos va a aumentar
     }
+    
+    public void eliminar(long x) {
+        if (estaVacia()) {
+            //Imposible, por que el usuario estará logueado
+        } else {
+            if((cabeza==cola) && (cabeza.getUsuario().getCarnet()==x)){
+                cabeza=cola=null;
+            }else if(cabeza.getUsuario().getCarnet()==x){
+                cabeza=cabeza.getSiguiente();
+            }else{
+                NodoUsuarioLS anterior, temp;
+                anterior=cabeza;
+                temp=cabeza.getSiguiente();
+                while(temp!=null && temp.getUsuario().getCarnet()!=x){
+                    anterior=anterior.getSiguiente();
+                    temp=temp.getSiguiente();
+                }
+                if(temp!=null){
+                    anterior.setSiguiente(temp.getSiguiente());
+                    if(temp==cola){
+                        cola=anterior;
+                    }
+                }
+            }
+        }
+        this.setTamanio(this.getTamanio() + 1);//Esta afuera, por que en ambos casos va a aumentar
+    }
 
    
 
