@@ -128,6 +128,407 @@ public class ArbolB {
         return raiz;
     }
     
+    public Libro eliminar(Integer value) {
+        System.out.println("value "+value);
+        NodoArbolB node = this.getNodo(value);
+        System.out.println("node "+node.cantLibros);
+        Libro removed = eliminar(value, node);
+        
+        return removed;
+    }
+
+    private Libro eliminar(Integer value, NodoArbolB node) {
+        System.out.println("1");
+        if (node == null) {
+            return null;
+        }
+        System.out.println("2");
+        int index = node.indexOf(value);
+        System.out.println("3");
+        Libro removed = node.removeKey(value);
+        System.out.println("4");
+        if (node.numberOfChildren() == 0) {
+            System.out.println("5");
+            // leaf node
+            if (node.parent != null && node.numberOfKeys() < minClaves) {
+                System.out.println("51");
+                this.combined(node);
+            } else if (node.parent == null && node.numberOfKeys() == 0) {
+                // Removing raiz node with no keys or children
+                System.out.println("52");
+                raiz = null;
+            }
+        } else {
+            System.out.println("6");
+            // internal node
+            NodoArbolB lesser = node.getChild(index);
+            NodoArbolB greatest = this.getGreatestNode(lesser);
+            Libro replaceValue = this.removeGreatestValue(greatest);
+            node.addKey(replaceValue);
+            if (greatest.parent != null && greatest.numberOfKeys() < minClaves) {
+                this.combined(greatest);
+            }
+            if (greatest.numberOfChildren() > maxHijos) {
+                this.split(greatest);
+            }
+        }
+        tamanio--;
+        return removed;
+    }
+    
+    private Libro removeGreatestValue(NodoArbolB node) {
+        Libro value = null;
+        if (node.numberOfKeys() > 0) {
+            value = node.removeKey(node.numberOfKeys() - 1);
+        }
+        return value;
+    }
+
+    public void clear() {
+        raiz = null;
+        tamanio = 0;
+    }
+
+    public boolean contains(Integer value) {
+        NodoArbolB node = getNodo(value);
+        return (node != null);
+    }
+
+    public NodoArbolB getNodo(Integer value) {
+        NodoArbolB node = raiz;
+        while (node != null) {
+            Libro lesser = node.getKey(0);
+            if (value.compareTo(lesser.getISBN()) < 0) {
+                if (node.numberOfChildren() > 0) {
+                    node = node.getChild(0);
+                } else {
+                    node = null;
+                }
+                continue;
+            }
+
+            int numberOfKeys = node.numberOfKeys();
+            int last = numberOfKeys - 1;
+            Libro greater = node.getKey(last);
+            if (value.compareTo(greater.getISBN()) > 0) {
+                if (node.numberOfChildren() > numberOfKeys) {
+                    node = node.getChild(numberOfKeys);
+                } else {
+                    node = null;
+                }
+                continue;
+            }
+
+            for (int i = 0; i < numberOfKeys; i++) {
+                Libro currentValue = node.getKey(i);
+                if (currentValue.getISBN().compareTo(value) == 0) {
+                    return node;
+                }
+
+                int next = i + 1;
+                if (next <= last) {
+                    Libro nextValue = node.getKey(next);
+                    if (currentValue.getISBN().compareTo(value) < 0 && nextValue.getISBN().compareTo(value) > 0) {
+                        if (next < node.numberOfChildren()) {
+                            node = node.getChild(next);
+                            break;
+                        }
+                        return null;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private NodoArbolB getGreatestNode(NodoArbolB nodeToGet) {
+        NodoArbolB node = nodeToGet;
+        while (node.numberOfChildren() > 0) {
+            node = node.getChild(node.numberOfChildren() - 1);
+        }
+        return node;
+    }
+
+
+    private boolean combined(NodoArbolB node) {
+        NodoArbolB parent = node.parent;
+        int index = parent.indexOf(node);
+        int indexOfLeftNeighbor = index - 1;
+        int indexOfRightNeighbor = index + 1;
+
+        NodoArbolB rightNeighbor = null;
+        int rightNeighborSize = -minHijos;
+        if (indexOfRightNeighbor < parent.numberOfChildren()) {
+            rightNeighbor = parent.getChild(indexOfRightNeighbor);
+            rightNeighborSize = rightNeighbor.numberOfKeys();
+        }
+
+        // Try to borrow neighbor
+        if (rightNeighbor != null && rightNeighborSize > minClaves) {
+            // Try to borrow from right neighbor
+            Libro removeValue = rightNeighbor.getKey(0);
+            int prev = getIndexOfPreviousValue(parent, removeValue);
+            Libro parentValue = parent.removeKey(prev);
+            Libro neighborValue = rightNeighbor.removeKey(0);
+            node.addKey(parentValue);
+            parent.addKey(neighborValue);
+            if (rightNeighbor.numberOfChildren() > 0) {
+                node.addChild(rightNeighbor.removeChild(0));
+            }
+        } else {
+            NodoArbolB leftNeighbor = null;
+            int leftNeighborSize = -minHijos;
+            if (indexOfLeftNeighbor >= 0) {
+                leftNeighbor = parent.getChild(indexOfLeftNeighbor);
+                leftNeighborSize = leftNeighbor.numberOfKeys();
+            }
+
+            if (leftNeighbor != null && leftNeighborSize > minClaves) {
+                // Try to borrow from left neighbor
+                Libro removeValue = leftNeighbor.getKey(leftNeighbor.numberOfKeys() - 1);
+                int prev = getIndexOfNextValue(parent, removeValue);
+                Libro parentValue = parent.removeKey(prev);
+                Libro neighborValue = leftNeighbor.removeKey(leftNeighbor.numberOfKeys() - 1);
+                node.addKey(parentValue);
+                parent.addKey(neighborValue);
+                if (leftNeighbor.numberOfChildren() > 0) {
+                    node.addChild(leftNeighbor.removeChild(leftNeighbor.numberOfChildren() - 1));
+                }
+            } else if (rightNeighbor != null && parent.numberOfKeys() > 0) {
+                // Can't borrow from neighbors, try to combined with right neighbor
+                Libro removeValue = rightNeighbor.getKey(0);
+                int prev = getIndexOfPreviousValue(parent, removeValue);
+                Libro parentValue = parent.removeKey(prev);
+                parent.removeChild(rightNeighbor);
+                node.addKey(parentValue);
+                for (int i = 0; i < rightNeighbor.cantLibros; i++) {//KeysSize
+                    Libro v = rightNeighbor.getKey(i);
+                    node.addKey(v);
+                }
+                for (int i = 0; i < rightNeighbor.cantHijos; i++) {//childrenSize
+                    NodoArbolB c = rightNeighbor.getChild(i);
+                    node.addChild(c);
+                }
+
+                if (parent.parent != null && parent.numberOfKeys() < minClaves) {
+                    // removing key made parent too small, combined up tree
+                    this.combined(parent);
+                } else if (parent.numberOfKeys() == 0) {
+                    // parent no longer has keys, make this node the new raiz
+                    // which decreases the height of the tree
+                    node.parent = null;
+                    raiz = node;
+                }
+            } else if (leftNeighbor != null && parent.numberOfKeys() > 0) {
+                // Can't borrow from neighbors, try to combined with left neighbor
+                Libro removeValue = leftNeighbor.getKey(leftNeighbor.numberOfKeys() - 1);
+                int prev = getIndexOfNextValue(parent, removeValue);
+                Libro parentValue = parent.removeKey(prev);
+                parent.removeChild(leftNeighbor);
+                node.addKey(parentValue);
+                for (int i = 0; i < leftNeighbor.cantLibros; i++) {//keySize
+                    Libro v = leftNeighbor.getKey(i);
+                    node.addKey(v);
+                }
+                for (int i = 0; i < leftNeighbor.cantHijos; i++) {//childrenSize
+                    NodoArbolB c = leftNeighbor.getChild(i);
+                    node.addChild(c);
+                }
+
+                if (parent.parent != null && parent.numberOfKeys() < minClaves) {
+                    // removing key made parent too small, combined up tree
+                    this.combined(parent);
+                } else if (parent.numberOfKeys() == 0) {
+                    // parent no longer has keys, make this node the new raiz
+                    // which decreases the height of the tree
+                    node.parent = null;
+                    raiz = node;
+                }
+            }
+        }
+        return true;
+    }
+
+    private int getIndexOfPreviousValue(NodoArbolB node, Libro value) {
+        for (int i = 1; i < node.numberOfKeys(); i++) {
+            Libro t = node.getKey(i);
+            if (t.getISBN().compareTo(value.getISBN()) >= 0) {
+                return i - 1;
+            }
+        }
+        return node.numberOfKeys() - 1;
+    }
+
+    private int getIndexOfNextValue(NodoArbolB node, Libro value) {
+        for (int i = 0; i < node.numberOfKeys(); i++) {
+            Libro t = node.getKey(i);
+            if (t.getISBN().compareTo(value.getISBN()) >= 0) {
+                return i;
+            }
+        }
+        return node.numberOfKeys() - 1;
+    }
+
+    public int size() {
+        return tamanio;
+    }
+
+    public boolean validate() {
+        if (raiz == null) {
+            return true;
+        }
+        return validateNode(raiz);
+    }
+
+    private boolean validateNode(NodoArbolB node) {
+        int keySize = node.numberOfKeys();
+        if (keySize > 1) {
+            // Make sure the keys are sorted
+            for (int i = 1; i < keySize; i++) {
+                Libro p = node.getKey(i - 1);
+                Libro n = node.getKey(i);
+                if (p.getISBN().compareTo(n.getISBN()) > 0) {
+                    return false;
+                }
+            }
+        }
+        int childrenSize = node.numberOfChildren();
+        if (node.parent == null) {
+            // raiz
+            if (keySize > maxClaves) {
+                // check max key tamanio. raiz does not have a min key tamanio
+                return false;
+            } else if (childrenSize == 0) {
+                // if raiz, no children, and keys are valid
+                return true;
+            } else if (childrenSize < 2) {
+                // raiz should have zero or at least two children
+                return false;
+            } else if (childrenSize > maxHijos) {
+                return false;
+            }
+        } else {
+            // non-raiz
+            if (keySize < minClaves) {
+                return false;
+            } else if (keySize > maxClaves) {
+                return false;
+            } else if (childrenSize == 0) {
+                return true;
+            } else if (keySize != (childrenSize - 1)) {
+                // If there are chilren, there should be one more child then
+                // keys
+                return false;
+            } else if (childrenSize < minHijos) {
+                return false;
+            } else if (childrenSize > maxHijos) {
+                return false;
+            }
+        }
+
+        NodoArbolB first = node.getChild(0);
+        // The first child's last key should be less than the node's first key
+        if (first.getKey(first.numberOfKeys() - 1).getISBN().compareTo(node.getKey(0).getISBN()) > 0) {
+            return false;
+        }
+
+        NodoArbolB last = node.getChild(node.numberOfChildren() - 1);
+        // The last child's first key should be greater than the node's last key
+        if (last.getKey(0).getISBN().compareTo(node.getKey(node.numberOfKeys() - 1).getISBN()) < 0) {
+            return false;
+        }
+
+        // Check that each node's first and last key holds it's invariance
+        for (int i = 1; i < node.numberOfKeys(); i++) {
+            Libro p = node.getKey(i - 1);
+            Libro n = node.getKey(i);
+            NodoArbolB c = node.getChild(i);
+            if (p.getISBN().compareTo(c.getKey(0).getISBN()) > 0) {
+                return false;
+            }
+            if (n.getISBN().compareTo(c.getKey(c.numberOfKeys() - 1).getISBN()) < 0) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < node.cantHijos; i++) {//childrenSize
+            NodoArbolB c = node.getChild(i);
+            boolean valid = this.validateNode(c);
+            if (!valid) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    
+    
+    /*public String getString() {
+        return getString(this);
+    }
+    public ArrayList<Libro> getBooks() {
+        return getBooks(this.raiz);
+    }
+    private String getString(ArbolB tree) {
+        if (tree.raiz == null) {
+            return "Tree has no nodes.";
+        }
+        return getString(tree.raiz, "", true);
+    }
+    private String getString(NodoArbolB node, String prefix, boolean isTail) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(prefix).append((isTail ? "└── " : "├── "));
+        for (int i = 0; i < node.numberOfKeys(); i++) {
+            Libro value = node.getKey(i);
+            builder.append(value.getISBN());
+            if (i < node.numberOfKeys() - 1) {
+                builder.append(", ");
+            }
+        }
+        builder.append("\n");
+
+        if (node.children != null) {
+            for (int i = 0; i < node.numberOfChildren() - 1; i++) {
+                NodoArbolB obj = node.getChild(i);
+                builder.append(getString(obj, prefix + (isTail ? "    " : "│   "), false));
+            }
+            if (node.numberOfChildren() >= 1) {
+                NodoArbolB obj = node.getChild(node.numberOfChildren() - 1);
+                builder.append(getString(obj, prefix + (isTail ? "    " : "│   "), true));
+            }
+        }
+
+        return builder.toString();
+    }
+    private ArrayList<Libro> getBooks(NodoArbolB node) {
+        ArrayList<Libro> arrayList = new ArrayList<>();
+
+        if (node != null) {
+            for (int i = 0; i < node.numberOfKeys(); i++) {
+                Libro value = node.getKey(i);
+                arrayList.add(value);
+            }
+
+            if (node.children != null) {
+                for (int i = 0; i < node.numberOfChildren() - 1; i++) {
+                    NodoArbolB obj = node.getChild(i);
+                    for (Libro book : getBooks(obj)) {
+                        arrayList.add(book);
+                    }
+                }
+                if (node.numberOfChildren() >= 1) {
+                    NodoArbolB obj = node.getChild(node.numberOfChildren() - 1);
+                    for (Libro book : getBooks(obj)) {
+                        arrayList.add(book);
+                    }
+                }
+            }
+        }
+        return arrayList;
+    }
+    */
     
     
     

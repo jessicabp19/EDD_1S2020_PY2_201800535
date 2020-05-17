@@ -7,8 +7,8 @@ public class NodoArbolB {
     private Libro[] clavesLibros;//CLAVES
     private NodoArbolB[] hijos;//HIJOS
     
-    private int cantLibros;
-    private int cantHijos;
+    public int cantLibros;
+    public int cantHijos;
     private Comparator<Libro> comparatorKeys = (Libro arg0, Libro arg1)
             -> arg0.getISBN() - arg1.getISBN();
     private Comparator<NodoArbolB> comparator = (NodoArbolB arg0, NodoArbolB arg1)
@@ -28,9 +28,9 @@ public class NodoArbolB {
         return clavesLibros[index];
     }
 
-    public int indexOf(int value) {
+    public int indexOf(Integer value) {//int
         for (int i = 0; i < cantLibros; i++) {
-            if (clavesLibros[i].getISBN()==value) {//EQUALS
+            if (clavesLibros[i].getISBN().equals(value)) {//EQUALS
                 return i;
             }
         }
@@ -43,13 +43,16 @@ public class NodoArbolB {
     }
     
     public Libro removeKey(Integer isbn) {
+        System.out.println("a");
         Libro removed = null;
         boolean found = false;
         if (cantLibros == 0) {
+            System.out.println("b");
             return null;
         }
         for (int i = 0; i < cantLibros; i++) {
-            if (clavesLibros[i].getISBN()==(isbn)) {//EQUALS
+            System.out.println("c"+i);
+            if (clavesLibros[i].getISBN().equals(isbn)) {//EQUALS
                 found = true;
                 removed = clavesLibros[i];
             } else if (found) {
@@ -58,6 +61,7 @@ public class NodoArbolB {
             }
         }
         if (found) {
+            System.out.println("d");
             cantLibros--;
             clavesLibros[cantLibros] = null;
         }

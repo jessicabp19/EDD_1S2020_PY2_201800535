@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import  java.math.BigInteger;
 import java.security.MessageDigest;//Sha256
 import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
 
 public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
@@ -260,6 +261,10 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
         try {
+            Libro l = miArbolBActual.eliminar(13550);
+            System.out.println("--ELIMINADO--" + l.getISBN() + l.getTitulo());
+            Libro b = miArbolBActual.eliminar(10935);
+            System.out.println("--ELIMINADO--" + b.getISBN() + b.getTitulo());
             contador=0;contador1=0;
             dibujarArbolB("ArbolB");
             graficador.dibujar(fileInputPath, fileOutputPath);
@@ -434,6 +439,7 @@ public class FrmReportes extends javax.swing.JFrame {
                 bWriter = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
                 
                 bWriter.append("digraph G {\n");
+                //amplitud(miArbolBActual.getRoot());
                 nodosArbol(miArbolBActual.getRoot());
                 //lineasArbol(miArbolBActual.getRoot());
                 bWriter.append("}");
@@ -503,6 +509,41 @@ public class FrmReportes extends javax.swing.JFrame {
         }
     }
     
+    //RECORRER POR NIVELES 
+    public void amplitud(NodoArbolB a) { //INICIAMOS CON RAIZ DEL ARBOL
+        LinkedList cola;
+        NodoArbolB aux;
+
+        if (a != null) { //SI LA RAIZ ES DIFERENTE DE NULL...
+            cola = new LinkedList();
+            cola.addFirst(a);
+
+            while (cola.peek() != null) { //MIENTRAS HAYAN LIBROS EN LA COLA...
+                aux = (NodoArbolB) cola.removeLast();//Obtenemos el ultimo
+                bWriter.append("n"+contador + "[label = \"");
+                while(aux!=null){
+                    /*isbn=aux.getKey(i).getISBN();
+                    titulo=aux.getKey(i).getTitulo();
+                    bWriter.append(isbn + " - " + titulo + " | ");
+                    i++;
+                    aux = arbol.getKey(i);*/
+                }
+                bWriter.append("\"];\n");
+                for (int i = 0; i < a.numberOfChildren(); i++) {//CICLO PARA AGREGAR HIJOS
+                    if (aux.getChild(i) != null) {
+                        cola.addFirst(aux.getChild(i));
+                    }
+                }                
+            }            
+        }
+    }
+    public void recorrerImprimir(NodoArbolB arbol) {
+        /*for (int i = 0; i < maxHijos - 1; i++) {
+            if (arbol.getLibro(i) != null) {
+                System.out.print(arbol.getLibro(i).getISBN() + ", ");
+            }
+        }*/
+    }
     
     public void dibujarArbolAVL(String nombreReporte) {
         try {
