@@ -1,14 +1,1 @@
-digraph G {Lirico[label = "Lirico"];
-Bonito[label = "Bonito"];
-AA[label = "AA"];
-CC[label = "CC"];
-V[label = "V"];
-U[label = "U"];
-W[label = "W"];
-Lirico->V;
-Lirico->Bonito;
-Bonito->CC;
-Bonito->AA;
-V->W;
-V->U;
-}
+digraph G {}

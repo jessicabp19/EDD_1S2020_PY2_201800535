@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import Estructuras.*;
 import static Objetos.AAVariables.*;
 import Objetos.GraphvizJava;
+import Objetos.Libro;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import  java.math.BigInteger;
@@ -14,10 +15,11 @@ public class FrmReportes extends javax.swing.JFrame {
     public static FrmReportes INSTANCE = null;
     private final String direccionProyecto=System.getProperty("user.dir") + "\\DocsReportes\\";
     private GraphvizJava graficador = new GraphvizJava();
-    PrintWriter avlWriter;
+    PrintWriter avlWriter, bWriter;
     String fileInputPath = "";
     String fileOutputPath = "";
     ListaSimple PreOrden, InOrden, PostOrden;
+    int contador=0, contador1=0;
 
     public FrmReportes() {
         initComponents();
@@ -258,6 +260,7 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
         try {
+            contador=0;contador1=0;
             dibujarArbolB("ArbolB");
             graficador.dibujar(fileInputPath, fileOutputPath);
             esperar();
@@ -428,44 +431,75 @@ public class FrmReportes extends javax.swing.JFrame {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
                 bw.write("");bw.close();
-                PrintWriter writer = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
+                bWriter = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
                 
-                writer.append("digraph D {\nrankdir=LR\nnode [fontname=\"Arial\"];\n");
-
+                bWriter.append("digraph G {\n");
+                nodosArbol(miArbolBActual.getRoot());
+                //lineasArbol(miArbolBActual.getRoot());
+                bWriter.append("}");
                 
-                
-                /*int tamanio = miTablaUsuarios.getM(), group=1;
-                for (int i = 0; i < tamanio; i++) {
-                    ListaUsuarios listaAux = miTablaUsuarios.getUsuarios(i);int j = 0;
-                    if (i == 0) {writer.append("start-> nodo" + i + ";\n");
-                    }else {writer.append("nodo" + (i - 1) + "->nodo" + i + ";\n");}
-                    writer.append("nodo" + i + "[shape = record, style = rounded, label = \"INDICE " + i + "\", group = "+ group +", fillcolor = lavenderblush];\n");
-
-                    NodoUsuarioLS nodoAux = listaAux.getCabeza();
-                    while (nodoAux != null) {
-                        if (j == 0) {
-                            writer.append("nodo" + i + "-> n" + i+j + ";\n");
-                        } else {
-                            writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
-                        }
-                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
-                        j++;nodoAux = nodoAux.getSiguiente();
-                    }
-                    group++;
-                }
-                writer.append("{rank = same; start;");
-                for (int i = 0; i < tamanio; i++) {
-                    writer.append("nodo"+i+";");
-                }*/
-                writer.append("}\n}\n");writer.close();
-                
-                
-                
+                bWriter.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "ERROR");
+                JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+    private void nodosArbol(NodoArbolB arbol){
+        if (arbol != null){
+            Libro aux = arbol.getKey(0);
+            int i=0;
+            long isbn;
+            String titulo;
+            bWriter.append("n"+contador + "[label = \"");
+            while(aux!=null){
+                isbn=arbol.getKey(i).getISBN();
+                titulo=arbol.getKey(i).getTitulo();
+                bWriter.append(isbn + " - " + titulo + " | ");
+                i++;
+                aux = arbol.getKey(i);
+            }
+            bWriter.append("\"];\n");
+            contador++;
+            for(int j = 0; j < arbol.numberOfChildren(); j++){
+                if(arbol.getChild(j)!=null){
+                    nodosArbol(arbol.getChild(j));
+                    //bWriter.append("n"+(contador-1) + "->" + "n"+contador + ";\n");
+                }
+            }
+        }
+    }
+    private void lineasArbol(NodoArbolB arbol){
+        /*if (arbol != null){
+            if (arbol.getHijoDerecho() != null) {
+                avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoDerecho().getCategoria().getNomCategoria() + ";\n");
+            }
+            if (arbol.getHijoIzquierdo() != null) {
+                avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoIzquierdo().getCategoria().getNomCategoria() + ";\n");
+            }
+            lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
+        }*/
+        if (arbol != null){
+//            Libro aux = arbol.getKey(0);
+//            int i=0;
+//            long isbn;
+//            String titulo;
+//            bWriter.append("n"+contador + "[label = \"");
+//            while(aux!=null){
+//                isbn=arbol.getKey(i).getISBN();
+//                titulo=arbol.getKey(i).getTitulo();
+//                bWriter.append(isbn + " - " + titulo + " | ");
+//                i++;
+//                aux = arbol.getKey(i);
+//            }
+//            bWriter.append("\"];\n");
+            contador1++;
+            for(int j = 0; j < arbol.numberOfChildren(); j++){
+                if(arbol.getChild(j)!=null){
+                    bWriter.append("n"+(contador1-1) + "->" + "n"+contador1 + ";\n");
+                }
+            }
         }
     }
     
@@ -479,39 +513,11 @@ public class FrmReportes extends javax.swing.JFrame {
                 bw.write("");bw.close();
                 avlWriter = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
                 
-                
                 avlWriter.append("digraph G {");
                 nodosArbol(miArbolAVLCategorias.obtenerRaiz());
                 lineasArbol(miArbolAVLCategorias.obtenerRaiz());
                 avlWriter.append("}");
                 
-                
-                /*writer.append("digraph D {\nrankdir=LR\nnode [fontname=\"Arial\"];\n");
-
-                int tamanio = miTablaUsuarios.getM(), group=1;
-                for (int i = 0; i < tamanio; i++) {
-                    ListaUsuarios listaAux = miTablaUsuarios.getUsuarios(i);int j = 0;
-                    if (i == 0) {writer.append("start-> nodo" + i + ";\n");
-                    }else {writer.append("nodo" + (i - 1) + "->nodo" + i + ";\n");}
-                    writer.append("nodo" + i + "[shape = record, style = rounded, label = \"INDICE " + i + "\", group = "+ group +", fillcolor = lavenderblush];\n");
-
-                    NodoUsuarioLS nodoAux = listaAux.getCabeza();
-                    while (nodoAux != null) {
-                        if (j == 0) {
-                            writer.append("nodo" + i + "-> n" + i+j + ";\n");
-                        } else {
-                            writer.append("n" + i+(j - 1) + "->n" + i+j + ";\n");
-                        }
-                        writer.append("n" + i+j + "[shape = record style = rounded label = \"" + nodoAux.getUsuario().getNombre() + "\", group = "+ group +", fillcolor = lavenderblush];\n");
-                        j++;nodoAux = nodoAux.getSiguiente();
-                    }
-                    group++;
-                }
-                writer.append("{rank = same; start;");
-                for (int i = 0; i < tamanio; i++) {
-                    writer.append("nodo"+i+";");
-                }
-                writer.append("}\n}\n");*/
                 avlWriter.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR");

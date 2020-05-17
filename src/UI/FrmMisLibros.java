@@ -1,4 +1,15 @@
 package UI;
+
+import javax.swing.*;
+import static Objetos.AAVariables.*;
+import Objetos.Libro;
+import java.io.FileReader;
+import java.util.Iterator;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class FrmMisLibros extends javax.swing.JFrame {
 
     public static FrmMisLibros INSTANCE = null;
@@ -391,42 +402,55 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        /*JFileChooser buscador = new JFileChooser();
-        buscador.showOpenDialog(buscador);
+        JFileChooser ventana = new JFileChooser();
+        ventana.showOpenDialog(ventana);
+
         try {
-            String patch = buscador.getSelectedFile().getAbsolutePath();
-            FileInputStream archivo = new FileInputStream(patch);
-            DataInputStream entrada = new DataInputStream(archivo);
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
-            if (patch.endsWith(".proadd")) {
-                int var = 0;
-                String lineas;
-                while ((lineas = buffer.readLine()) != null) {
-                    String cadena2[] = lineas.split(",");
-                    try {
-                        if (miListaProductos.yaExiste(cadena2[0], cadena2[1], Double.parseDouble(cadena2[2]),
-                            Integer.parseInt(cadena2[3]), cadena2[4])) {
-                        var = var + 1;
-                    } else {
-                        miListaProductos.addProducto(cadena2[0], cadena2[1], Double.parseDouble(cadena2[2]),
-                            Integer.parseInt(cadena2[3]), cadena2[4]);
+            String path = ventana.getSelectedFile().getAbsolutePath();
+            if (path.endsWith(".json")) {
+                JSONParser parser = new JSONParser();
+                try {
+                    Object obj = parser.parse(new FileReader(path));
+                    JSONObject jsonObj = (JSONObject) obj;
+
+                    JSONArray libros = (JSONArray) jsonObj.get("libros");
+                    Iterator<JSONObject> iterador = libros.iterator();
+                    while (iterador.hasNext()) {
+                        JSONObject libro = (JSONObject) iterador.next();
+                        System.out.println("Antes del isbn");
+                        long isbn = (long) libro.get("ISBN");
+                        System.out.println(isbn);
+                        long anio = (long) libro.get("Año");
+                        System.out.println(anio);
+                        String idioma = (String) libro.get("Idioma");
+                        System.out.println(idioma);
+                        String titulo = (String) libro.get("Titulo");
+                        System.out.println(titulo);
+                        String editorial = (String) libro.get("Editorial");
+                        System.out.println(editorial);
+                        String autor = (String) libro.get("Autor");
+                        System.out.println(autor);
+                        long edicion = (long) libro.get("Edicion");
+                        System.out.println(edicion);
+                        String categoria = (String) libro.get("Categoria");
+                        System.out.println(categoria);
+                        int a = (int)isbn;int b = (int)anio;int c = (int)edicion;
+                        
+                        Libro nuevo = new Libro((Integer)a, b, idioma, titulo, 
+                        editorial, autor,c, categoria, miUsuarioLogueado.getCarnet());
+                        System.out.println("Luego del nuevo");
+                        miArbolBActual.add(nuevo);
+                        System.out.println(isbn + "/ "+ anio + idioma + titulo + 
+                        editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
                     }
-                } catch (Exception e) {
-                    var = var + 1;
+                } catch (Exception er) {
+                    JOptionPane.showMessageDialog(null, "Error, revisa tu documento. Especificacion: " + er.getMessage());
                 }
             }
-            entrada.close();
-            if (var > 0) {
-                JOptionPane.showMessageDialog(null, "Algun producto no se cargo correctamente o ya existia en el sistema", "ATENCIÓN", 1);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El archivo no tiene la extencion adecuada (.proadd)", "ATENCIÓN", 1);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error, algo ha fallado");
         }
-        } catch (Exception ed) {
-            System.out.println(ed);
-            JOptionPane.showMessageDialog(null, "ERROR, intenta nuevamente", "ERROR", 1);
-        }
-        miListaProductos.mostrarTabla(tablaProductos);*/
+        //miListaProductos.mostrarTabla(tablaProductos);*/
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

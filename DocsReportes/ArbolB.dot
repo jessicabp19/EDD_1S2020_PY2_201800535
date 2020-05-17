@@ -1,5 +1,21 @@
-digraph D {
-rankdir=LR
-node [fontname="Arial"];
-}
+digraph G {
+n0[label = "10801 - Sociología de la educación | "];
+n1[label = "10772 - Las Ventas en el mundo actual | 10793 - El misterio de María | "];
+n2[label = "10763 - Curso de derecho constitucional | 10770 - Marketing | "];
+n2->n3;
+n3[label = "10790 - Pragmatismo y educación: su interpretación y crítica / John L. Childs. | 10791 - Historia de la etnología | "];
+n3->n4;
+n4[label = "10794 - Mil quinientas [1,500]... máximas y sentencias de los más destacados filósofos de todos los tiempos | 10799 - Titanes de la canción guatemalteca | "];
+n4->n5;
+n4->n5;
+n5[label = "10831 - El camino y la meta | 10894 - Introducción al estudio de la música | 10937 - Lo que España llevó a América | "];
+n6[label = "10829 - El creciente fértil y la Biblia | 10830 - Relación de la vida y virtudes del beato Hno. Pedro de San José de Betancurt | "];
+n6->n7;
+n7[label = "10877 - Educación y sociedad : introducción a la sociología de la educación | 10891 - Sociología de la educación | "];
+n7->n8;
+n8[label = "10896 - Sociología de la educación | 10935 - Política. Figuras. Paisajes | "];
+n8->n9;
+n9[label = "10938 - Desarrollo organizacional : estrategias de interrelación humana para el desarrollo de organizaciones v 1 Desarrollo organizacional: su naturaleza, sus orígenes y perspectivas | 13549 - Introducción al código procesal penal | 13550 - Future libraries, future catalogues | "];
+n9->n10;
+n9->n10;
 }

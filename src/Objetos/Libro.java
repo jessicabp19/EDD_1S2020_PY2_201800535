@@ -1,14 +1,14 @@
 package Objetos;
 public class Libro {
     private Integer ISBN;
-    private String titulo;
-    private String autor;
-    private String editorial;
     private int anio;
+    private String idioma;
+    private String titulo;
+    private String editorial;
+    private String autor;
     private int edicion;
     private String categoria;
-    private String idioma;
-    private int carneUsuario;//JMM
+    private long carneUsuario;//JMM
     
     public Libro(){}
     
@@ -24,8 +24,8 @@ public class Libro {
         this.carneUsuario=0;
     }
     
-    public Libro(int ISBN,String titulo,String autor,String editorial, int anio,
-            int edicion,String categoria,String idioma,int carneUsuario){
+    public Libro(Integer ISBN, int anio,String idioma,String titulo,String editorial,
+            String autor,int edicion,String categoria,long carneUsuario){
         this.ISBN=ISBN;
         this.titulo=titulo;
         this.autor=autor;
@@ -41,7 +41,7 @@ public class Libro {
         return ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(Integer ISBN) {
         this.ISBN = ISBN;
     }
 
@@ -101,11 +101,11 @@ public class Libro {
         this.idioma = idioma;
     }
 
-    public int getCarneUsuario() {
+    public long getCarneUsuario() {
         return carneUsuario;
     }
 
-    public void setCarneUsuario(int carneUsuario) {
+    public void setCarneUsuario(long carneUsuario) {
         this.carneUsuario = carneUsuario;
     }
 }

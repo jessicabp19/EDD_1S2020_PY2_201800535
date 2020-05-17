@@ -73,7 +73,7 @@ public class ArbolB {
         return true;
     }
     
-     private void split(NodoArbolB nodeToSplit) {
+    private void split(NodoArbolB nodeToSplit) {
         NodoArbolB node = nodeToSplit;
         int numberOfKeys = node.numberOfKeys();
         int medianIndex = numberOfKeys / 2;
@@ -124,6 +124,9 @@ public class ArbolB {
         }
     }
     
+    public NodoArbolB getRoot(){
+        return raiz;
+    }
     
     
     
