@@ -24,6 +24,20 @@ public class ArbolAVL {
             return buscar(d, r.getHijoIzquierdo());
         }
     }
+    
+    public NodoArbolAVL buscar1(String d, NodoArbolAVL r){//IGNORE CASE Y COMPARETO
+        if(raiz==null || r == null){
+            return null;
+        }else if(r.getCategoria().getNomCategoria().equalsIgnoreCase(d)){
+            return r;
+        }else if(r.getCategoria().getNomCategoria().compareTo(d) < 0){
+            return buscar1(d, r.getHijoDerecho());
+        }else if(r.getCategoria().getNomCategoria().compareTo(d) > 0){
+            return buscar1(d, r.getHijoIzquierdo());
+        }else{
+            return null;
+        }
+    }
     //Obtener el Factor de Equilibrio
     public int obtenerFE(NodoArbolAVL x){
         if(x==null){

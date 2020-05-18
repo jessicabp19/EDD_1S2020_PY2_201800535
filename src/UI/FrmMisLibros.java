@@ -1,9 +1,15 @@
 package UI;
 
+import Estructuras.ArbolB;
+import Estructuras.NodoArbolAVL;
 import javax.swing.*;
 import static Objetos.AAVariables.*;
+import Objetos.Categoria;
 import Objetos.Libro;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -410,39 +416,46 @@ public class FrmMisLibros extends javax.swing.JFrame {
             if (path.endsWith(".json")) {
                 JSONParser parser = new JSONParser();
                 try {
-                    Object obj = parser.parse(new FileReader(path));
+                    //Object obj = parser.parse(new FileReader(path));
+                    Object obj = parser.parse(new InputStreamReader(
+                        new FileInputStream(path), StandardCharsets.UTF_8));
                     JSONObject jsonObj = (JSONObject) obj;
 
                     JSONArray libros = (JSONArray) jsonObj.get("libros");
                     Iterator<JSONObject> iterador = libros.iterator();
                     while (iterador.hasNext()) {
                         JSONObject libro = (JSONObject) iterador.next();
-                        System.out.println("Antes del isbn");
                         long isbn = (long) libro.get("ISBN");
                         System.out.println(isbn);
                         long anio = (long) libro.get("Año");
-                        System.out.println(anio);
                         String idioma = (String) libro.get("Idioma");
-                        System.out.println(idioma);
                         String titulo = (String) libro.get("Titulo");
-                        System.out.println(titulo);
                         String editorial = (String) libro.get("Editorial");
-                        System.out.println(editorial);
                         String autor = (String) libro.get("Autor");
-                        System.out.println(autor);
                         long edicion = (long) libro.get("Edicion");
-                        System.out.println(edicion);
                         String categoria = (String) libro.get("Categoria");
                         System.out.println(categoria);
                         int a = (int)isbn;int b = (int)anio;int c = (int)edicion;
                         
                         Libro nuevo = new Libro((Integer)a, b, idioma, titulo, 
                         editorial, autor,c, categoria, miUsuarioLogueado.getCarnet());
-                        System.out.println("Luego del nuevo");
-                        miArbolBActual.add(nuevo);
-                        System.out.println(isbn + "/ "+ anio + idioma + titulo + 
+                        
+                        NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(categoria, miArbolAVLCategorias.obtenerRaiz());
+                        if(nodo != null){
+                            nodo.getCategoria().getArbolb().add(nuevo);
+                            System.out.println(isbn + "/ CAT EXIST / "+ anio + idioma + titulo + 
                         editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                        }else{
+                            ArbolB bt = new ArbolB(5);
+                            bt.add(nuevo);
+                            Categoria cat = new Categoria(categoria, bt , miUsuarioLogueado.getCarnet());
+                            miArbolAVLCategorias.insertar(cat);
+                            System.out.println(isbn + "/ NUEVA CAT / "+ anio + idioma + titulo + 
+                        editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                        }
                     }
+                    JOptionPane.showMessageDialog(null, "CARGA REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
+                    
                 } catch (Exception er) {
                     JOptionPane.showMessageDialog(null, "Error, revisa tu documento. Especificacion: " + er.getMessage());
                 }
@@ -476,11 +489,12 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        /*if (cajasTextoVacias()) {
+        if (cajasTextoVacias()) {
         } else {
             try {
-                double precio = Double.parseDouble(txtPrecio.getText());
-                int existencias = Integer.parseInt(txtExistencia.getText());
+                Integer isbn = Integer.parseInt(txtISBN.getText());
+                
+                /*int existencias = Integer.parseInt(txtExistencia.getText());
                 if (precio <= 0 || existencias <= 0) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'Precio' y 'Existencias' ");
                 } else if (miListaProductos.yaExiste(txtNombre.getText(), txtDescripcion.getText(),
@@ -491,13 +505,13 @@ public class FrmMisLibros extends javax.swing.JFrame {
                     precio, existencias, txtDireccion.getText());
                 miListaProductos.mostrarTabla(tablaProductos);
                 limpiar();
-            }
+            }*/
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar números en 'Precio' y 'Existencias' ");
+            JOptionPane.showMessageDialog(null, "Debes ingresar números en 'ISBN' , 'Año' e 'Idioma'");
         } catch (Exception ed) {
             JOptionPane.showMessageDialog(null, " - ERROR, intenta mas tarde - ", "ERROR", 1);
         }
-        }*/
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
@@ -578,4 +592,14 @@ public class FrmMisLibros extends javax.swing.JFrame {
     private javax.swing.JTextField txtNBusqueda;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
+
+    public boolean cajasTextoVacias(){
+        if (txtISBN.getText().equals("") || txtTitulo.getText().equals("") || txtAnio.getText().equals("")
+                || txtAutor.getText().equals("") || txtCategoria.getText().equals("") 
+                || txtEdicion.getText().equals("") || txtEditorial.getText().equals("") || txtIdioma.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe Completar la Información Correpondiente", "ATENCIÓN", 1);
+            return true;
+        }
+        return false;
+    }
 }

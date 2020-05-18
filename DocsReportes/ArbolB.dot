@@ -1,11 +1,11 @@
 digraph G {
-n0[label = "10801 - SociologÃ­a de la educaciÃ³n | "];
-n1[label = "10772 - Las Ventas en el mundo actual | 10793 - El misterio de MarÃ­a | "];
+n0[label = "10801 - Sociología de la educación | "];
+n1[label = "10772 - Las Ventas en el mundo actual | 10793 - El misterio de María | "];
 n2[label = "10763 - Curso de derecho constitucional | 10770 - Marketing | "];
-n3[label = "10790 - Pragmatismo y educaciÃ³n: su interpretaciÃ³n y crÃ­tica / John L. Childs. | 10791 - Historia de la etnologÃ­a | "];
-n4[label = "10794 - Mil quinientas [1,500]... mÃ¡ximas y sentencias de los mÃ¡s destacados filÃ³sofos de todos los tiempos | 10799 - Titanes de la canciÃ³n guatemalteca | "];
-n5[label = "10831 - El camino y la meta | 10894 - IntroducciÃ³n al estudio de la mÃºsica | "];
-n6[label = "10829 - El creciente fÃ©rtil y la Biblia | 10830 - RelaciÃ³n de la vida y virtudes del beato Hno. Pedro de San JosÃ© de Betancurt | "];
-n7[label = "10877 - EducaciÃ³n y sociedad : introducciÃ³n a la sociologÃ­a de la educaciÃ³n | 10891 - SociologÃ­a de la educaciÃ³n | "];
-n8[label = "10896 - SociologÃ­a de la educaciÃ³n | 10937 - Lo que EspaÃ±a llevÃ³ a AmÃ©rica | 10938 - Desarrollo organizacional : estrategias de interrelaciÃ³n humana para el desarrollo de organizaciones v 1 Desarrollo organizacional: su naturaleza, sus orÃ­genes y perspectivas | 13549 - IntroducciÃ³n al cÃ³digo procesal penal | "];
+n3[label = "10790 - Pragmatismo y educación: su interpretación y crítica / John L. Childs. | 10791 - Historia de la etnología | "];
+n4[label = "10794 - Mil quinientas [1,500]... máximas y sentencias de los más destacados filósofos de todos los tiempos | 10799 - Titanes de la canción guatemalteca | "];
+n5[label = "10831 - El camino y la meta | 10894 - Introducción al estudio de la música | "];
+n6[label = "10829 - El creciente fértil y la Biblia | 10830 - Relación de la vida y virtudes del beato Hno. Pedro de San José de Betancurt | "];
+n7[label = "10877 - Educación y sociedad : introducción a la sociología de la educación | 10891 - Sociología de la educación | "];
+n8[label = "10896 - Sociología de la educación | 10937 - Lo que España llevó a América | 10938 - Desarrollo organizacional : estrategias de interrelación humana para el desarrollo de organizaciones v 1 Desarrollo organizacional: su naturaleza, sus orígenes y perspectivas | 13549 - Introducción al código procesal penal | "];
 }

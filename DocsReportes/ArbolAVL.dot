@@ -1,1 +1,20 @@
-digraph G {}
+digraph G {Informativos[label = "Informativos"];
+Drama[label = "Drama"];
+Consulta[label = "Consulta"];
+Biografia[label = "Biografia"];
+Ensayo[label = "Ensayo"];
+Lírico[label = "Lírico"];
+Literatura[label = "Literatura"];
+Sagas[label = "Sagas"];
+Revista[label = "Revista"];
+Épico[label = "Épico"];
+Informativos->Lírico;
+Informativos->Drama;
+Drama->Ensayo;
+Drama->Consulta;
+Consulta->Biografia;
+Lírico->Sagas;
+Lírico->Literatura;
+Sagas->Épico;
+Sagas->Revista;
+}
