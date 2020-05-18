@@ -2,6 +2,7 @@ package UI;
 
 import Estructuras.ArbolB;
 import Estructuras.NodoArbolAVL;
+import Estructuras.NodoArbolB;
 import javax.swing.*;
 import static Objetos.AAVariables.*;
 import Objetos.Categoria;
@@ -19,6 +20,7 @@ import org.json.simple.parser.ParseException;
 public class FrmMisLibros extends javax.swing.JFrame {
 
     public static FrmMisLibros INSTANCE = null;
+    public boolean existe;
     
     public FrmMisLibros() {
         initComponents();
@@ -60,7 +62,6 @@ public class FrmMisLibros extends javax.swing.JFrame {
         btnBuscarISBN = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnCargar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -264,15 +265,6 @@ public class FrmMisLibros extends javax.swing.JFrame {
             }
         });
 
-        btnModificar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnModificar.setText("MODIFICAR");
-        btnModificar.setToolTipText("Recuerda Buscar Primero");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
         btnAgregar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnAgregar.setText("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -309,9 +301,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(462, 462, 462)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(605, 605, 605)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -349,7 +339,6 @@ public class FrmMisLibros extends javax.swing.JFrame {
                     .addComponent(btnCargar)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAgregar)
-                        .addComponent(btnModificar)
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -400,7 +389,17 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarNActionPerformed
 
     private void btnBuscarISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarISBNActionPerformed
-        // TODO add your handling code here:
+        if(txtISBNBusqueda.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingresa el ISBN a buscar", "ATENCIÓN", 1);
+        }else{
+            try{
+                
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ingresa un número en el ISBN a buscar", "ATENCIÓN", 1);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ATENCIÓN", 1);
+            }
+        }
     }//GEN-LAST:event_btnBuscarISBNActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -466,37 +465,34 @@ public class FrmMisLibros extends javax.swing.JFrame {
         //miListaProductos.mostrarTabla(tablaProductos);*/
     }//GEN-LAST:event_btnCargarActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        /*if (miListaProductos.estaVacia()) {
-            JOptionPane.showMessageDialog(null, " - Lista Vacia - ");
-        } else if (txtNumPrincipal.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un Identificador");
-        } else if (!miListaProductos.existe(Integer.parseInt(txtNumPrincipal.getText()))) {
-            JOptionPane.showMessageDialog(null, " - No existe un producto con ese ID - ");
-        } else if (cajasTextoVacias()) {
-        } else if (Double.parseDouble(txtPrecio.getText()) <= 0 && Integer.parseInt(txtExistencia.getText()) < 0) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'Precio' y 'Existencias' ");
-        } else {
-            try {
-                miListaProductos.modificar(Integer.parseInt(txtNumPrincipal.getText()), txtNombre.getText(), txtDescripcion.getText(),
-                    Double.parseDouble(txtPrecio.getText()), Integer.parseInt(txtExistencia.getText()), txtDireccion.getText());
-                limpiar();
-                miListaProductos.mostrarTabla(tablaProductos);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "ERROR, Datos no validos: " + e.getMessage());
-            }
-        }*/
-    }//GEN-LAST:event_btnModificarActionPerformed
-
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (cajasTextoVacias()) {
         } else {
             try {
-                Integer isbn = Integer.parseInt(txtISBN.getText());
+                Integer a = Integer.parseInt(txtISBN.getText());
+                int b = Integer.parseInt(txtAnio.getText());
+                int c = Integer.parseInt(txtEdicion.getText());
+                Libro nuevo = new Libro( a, b, txtIdioma.getText(), txtTitulo.getText(),
+                txtEditorial.getText(), txtAutor.getText(), c, txtCategoria.getText(), miUsuarioLogueado.getCarnet());
+
+                NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(txtCategoria.getText(), miArbolAVLCategorias.obtenerRaiz());
+                if (nodo != null) {
+                    nodo.getCategoria().getArbolb().add(nuevo);
+                } else {
+                    ArbolB bt = new ArbolB(5);
+                    bt.add(nuevo);
+                    Categoria cat = new Categoria(txtCategoria.getText(), bt, miUsuarioLogueado.getCarnet());
+                    miArbolAVLCategorias.insertar(cat);
+                }
+                JOptionPane.showMessageDialog(null, "CREACION REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
                 
-                /*int existencias = Integer.parseInt(txtExistencia.getText());
-                if (precio <= 0 || existencias <= 0) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'Precio' y 'Existencias' ");
+                
+                
+                
+                
+                
+                /*if (a <= 0 || b <= 0 || c <=0) {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'ISBN' , 'Anio' y 'Edición' ");
                 } else if (miListaProductos.yaExiste(txtNombre.getText(), txtDescripcion.getText(),
                     precio, existencias, txtDireccion.getText())) {
                 JOptionPane.showMessageDialog(null, "El producto ya existe en el sistema");
@@ -506,8 +502,11 @@ public class FrmMisLibros extends javax.swing.JFrame {
                 miListaProductos.mostrarTabla(tablaProductos);
                 limpiar();
             }*/
+                
+                
+                
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar números en 'ISBN' , 'Año' e 'Idioma'");
+            JOptionPane.showMessageDialog(null, "Debes ingresar números en 'ISBN' , 'Año' y 'Edición'");
         } catch (Exception ed) {
             JOptionPane.showMessageDialog(null, " - ERROR, intenta mas tarde - ", "ERROR", 1);
         }
@@ -562,7 +561,6 @@ public class FrmMisLibros extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarN;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -601,5 +599,34 @@ public class FrmMisLibros extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+    
+    public boolean ISBNValido(){
+        return true;
+    }
+    
+    private void nodosArbol(NodoArbolAVL arbol, Integer isbn){
+    if (arbol != null){
+        //avlWriter.append(arbol.getCategoria().getNomCategoria() + "[label = \"" + arbol.getCategoria().getNomCategoria() + "\"];\n");
+        //NodoArbolB aux= arbol.getCategoria().getArbolb().buscar(arbol.getCategoria().getArbolb().getRoot(), isbn);
+        /*if(aux != null){
+            existe=true;
+        }else{
+            existe=false;
+        }*/
+        nodosArbol(arbol.getHijoIzquierdo(), isbn);nodosArbol(arbol.getHijoDerecho(), isbn);
+    }
+    }
+    
+    private void lineasArbol(NodoArbolAVL arbol, Integer isbn){
+    /*if (arbol != null){
+        if (arbol.getHijoDerecho() != null) {
+            if(arbol.getCategoria().getArbolb().
+        }
+        if (arbol.getHijoIzquierdo() != null) {
+            avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoIzquierdo().getCategoria().getNomCategoria() + ";\n");
+        }
+        lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
+    }*/
     }
 }

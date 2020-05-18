@@ -3,6 +3,8 @@ package Estructuras;
 import Objetos.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ArbolB {
     
@@ -12,6 +14,7 @@ public class ArbolB {
     private int minClaves;
     private NodoArbolB raiz = null;//Sin null
     private int tamanio;
+    private boolean existe = false;
     
     public ArbolB(int orden) {
         this.maxHijos = orden;
@@ -462,157 +465,6 @@ public class ArbolB {
         return true;
     }
     
-    
-    
-    /*public String getString() {
-        return getString(this);
-    }
-    public ArrayList<Libro> getBooks() {
-        return getBooks(this.raiz);
-    }
-    private String getString(ArbolB tree) {
-        if (tree.raiz == null) {
-            return "Tree has no nodes.";
-        }
-        return getString(tree.raiz, "", true);
-    }
-    private String getString(NodoArbolB node, String prefix, boolean isTail) {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(prefix).append((isTail ? "└── " : "├── "));
-        for (int i = 0; i < node.numberOfKeys(); i++) {
-            Libro value = node.getKey(i);
-            builder.append(value.getISBN());
-            if (i < node.numberOfKeys() - 1) {
-                builder.append(", ");
-            }
-        }
-        builder.append("\n");
-
-        if (node.children != null) {
-            for (int i = 0; i < node.numberOfChildren() - 1; i++) {
-                NodoArbolB obj = node.getChild(i);
-                builder.append(getString(obj, prefix + (isTail ? "    " : "│   "), false));
-            }
-            if (node.numberOfChildren() >= 1) {
-                NodoArbolB obj = node.getChild(node.numberOfChildren() - 1);
-                builder.append(getString(obj, prefix + (isTail ? "    " : "│   "), true));
-            }
-        }
-
-        return builder.toString();
-    }
-    private ArrayList<Libro> getBooks(NodoArbolB node) {
-        ArrayList<Libro> arrayList = new ArrayList<>();
-
-        if (node != null) {
-            for (int i = 0; i < node.numberOfKeys(); i++) {
-                Libro value = node.getKey(i);
-                arrayList.add(value);
-            }
-
-            if (node.children != null) {
-                for (int i = 0; i < node.numberOfChildren() - 1; i++) {
-                    NodoArbolB obj = node.getChild(i);
-                    for (Libro book : getBooks(obj)) {
-                        arrayList.add(book);
-                    }
-                }
-                if (node.numberOfChildren() >= 1) {
-                    NodoArbolB obj = node.getChild(node.numberOfChildren() - 1);
-                    for (Libro book : getBooks(obj)) {
-                        arrayList.add(book);
-                    }
-                }
-            }
-        }
-        return arrayList;
-    }
-    */
-    
-    
-    
-    
-    
-    
-    
-    
-    private boolean soloIngresar = true;
-    //CONSTRUCTORES
-    public ArbolB() {
-    }
-    /*public ArbolB(int M) {
-        this.raiz= new NodoArbolB(M, true);//=null;//
-        this.maxHijos = M;
-    }*/
-    //INSERTAR
-    public void insertar(int isbn) {
-        NodoArbolB temp = buscar(raiz, isbn);
-        Libro miLibro = new Libro(isbn);
-        Libro aux1, aux2=null;
-        int pos = 0, j=0;
-        if (temp == null) {
-            System.out.println("LO SENTIMOS, YA EXISTE UN LIBRO CON ESE ISBN");
-        } else {//PERDON POR EL DESORDEN, aun debo optimizar y limpiar el codigo
-            if (temp.hayEspacio()) {
-                
-                int i=temp.cantLibros()-1;
-                while (i >= 0 && temp.getLibro(i).getISBN() > isbn) {
-                    temp.setLibro(i+1, temp.getLibro(i));
-                    i--;
-                }
-                // Insert the new key at found location 
-                temp.setLibro(i+1, miLibro);
-                
-            } else {
-                System.out.println("Sin espacio");
-            }
-        }
-    }
-    //BUSCAR
-    public NodoArbolB buscar(NodoArbolB arbol, int isbn) {
-        if (contieneClave(arbol, isbn)) {
-            return null;//debe indicar que esta repetido
-        } else {
-            if (esHoja(arbol)) {
-                return arbol;//
-            } else {
-                buscar(nodoHoja(arbol, isbn), isbn);//Si no funciona, while y una bandera
-            }
-        }
-        return null;
-    }
-    public boolean contieneClave(NodoArbolB arbol, int isbn) {
-        for (int i = 0; i < maxHijos - 1; i++) {
-            if (arbol != null && arbol.getLibro(i) != null) {
-                if (arbol.getLibro(i).getISBN() == isbn) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    public boolean esHoja(NodoArbolB arbol) {
-        int contHijosNulos = 0;
-        for (int i = 0; i < maxHijos; i++) {
-            if (arbol.getHijo(i) == null) {
-                contHijosNulos++;
-            }
-        }
-        return contHijosNulos == maxHijos;
-    }
-    public NodoArbolB nodoHoja(NodoArbolB arbol, int isbn) {
-        for (int i = 0; i < maxHijos - 1; i++) {
-            if (arbol.getLibro(i) != null) {
-                if (arbol.getLibro(i).getISBN() > isbn) {
-                    return arbol.getHijo(i);
-                } else if ((arbol.getLibro(i).getISBN() < isbn) && (i == maxHijos - 2)) {
-                    return arbol.getHijo(i + 1);
-                }
-            }
-        }
-        return null;
-    }
     //RECORRER POR NIVELES 
     public void recorridoNiveles() {
         amplitud(raiz);
@@ -638,11 +490,87 @@ public class ArbolB {
         }
     }
     public void recorrerImprimir(NodoArbolB arbol) {
-        for (int i = 0; i < maxHijos - 1; i++) {
+        for (int i = 0; i < maxClaves; i++) {
             if (arbol.getLibro(i) != null) {
                 System.out.print(arbol.getLibro(i).getISBN() + ", ");
             }
         }
+    }
+    
+    public void obtenerLibros() {
+        recorridoAnchura(raiz);
+    }
+    public void recorridoAnchura(NodoArbolB a) { //INICIAMOS CON RAIZ DEL ARBOL
+        LinkedList cola;
+        NodoArbolB aux;
+
+        if (a != null) { //SI LA RAIZ ES DIFERENTE DE NULL...
+            cola = new LinkedList();
+            cola.addFirst(a);
+
+            while (cola.peek() != null) { //MIENTRAS HAYAN LIBROS EN LA COLA...
+                aux = (NodoArbolB) cola.removeLast();//Obtenemos el ultimo
+                recorrerAgregar(aux);//Recorremos sus claves y las imprimimos
+
+                for (int i = 0; i < maxHijos; i++) {//CICLO PARA AGREGAR HIJOS
+                    if (aux.getHijo(i) != null) {
+                        cola.addFirst(aux.getHijo(i));
+                    }
+                }                
+            }            
+        }
+    }
+    public void recorrerAgregar(NodoArbolB arbol) {
+        for (int i = 0; i < maxClaves; i++) {
+            if (arbol.getLibro(i) != null) {
+                System.out.print(arbol.getLibro(i).getISBN() + ", ");
+            }
+        }
+    }
+    
+    public void mostrarTabla(JTable tabla) {
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        int cuantos = tabla.getRowCount();
+        for (int i = 0; i < cuantos; i++) {
+            modelo.removeRow(0);
+        }
+        tabla.setModel(modelo);
+        
+        LinkedList cola;
+        NodoArbolB aux;
+
+        if (raiz != null) { //SI LA RAIZ ES DIFERENTE DE NULL...
+            cola = new LinkedList();
+            cola.addFirst(raiz);
+
+            while (cola.peek() != null) { //MIENTRAS HAYAN LIBROS EN LA COLA...
+                aux = (NodoArbolB) cola.removeLast();//Obtenemos el ultimo
+                for (int i = 0; i < maxClaves; i++) {
+                    if (aux.getLibro(i) != null) {
+                        //System.out.print(aux.getLibro(i).getISBN() + ", ");
+                        Object[] datos = new Object[2];
+                        datos[0] = "" + aux.getLibro(i).getISBN();
+                        datos[1] = "" + aux.getLibro(i).getTitulo();
+                        modelo.addRow(datos);
+                    }
+                }
+                for (int i = 0; i < maxHijos; i++) {//CICLO PARA AGREGAR HIJOS
+                    if (aux.getHijo(i) != null) {
+                        cola.addFirst(aux.getHijo(i));
+                    }
+                }                
+            }            
+        }
+        tabla.setModel(modelo);
+    }
+    
+
+    public boolean isExiste() {
+        return existe;
+    }
+
+    public void setExiste(boolean existe) {
+        this.existe = existe;
     }
 
 }

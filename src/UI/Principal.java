@@ -178,7 +178,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLibrosActionPerformed
 
     private void btnCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatalogoActionPerformed
-        FrmCatalogo miPantalla = FrmCatalogo.getSingletonInstance();
+        FrmCategorias miPantalla = FrmCategorias.getSingletonInstance();
+        miPantalla.verCategorias();
         miPantalla.setTitle("CATALOGO");
         //miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
@@ -221,6 +222,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCatalogo;

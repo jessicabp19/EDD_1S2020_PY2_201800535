@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 public class ArbolAVL {
     
     private NodoArbolAVL raiz;
+    public boolean banderaDuplicado=false;
     
     public ArbolAVL(){
         raiz=null;
@@ -111,6 +112,7 @@ public class ArbolAVL {
             }
         }else{
             System.out.println("Nodo Duplicado");
+            banderaDuplicado=true;
             JOptionPane.showMessageDialog(null, "Categoria existente", "ATENCIÓN", 0);
         }
         //Actualizando la altura
@@ -124,12 +126,15 @@ public class ArbolAVL {
         return nuevoPadre;
     }
     //Metodo para insertar
-    public void insertar(Categoria c){
+    public boolean insertar(Categoria c){
+        banderaDuplicado=false;
         NodoArbolAVL nuevo=new NodoArbolAVL(c);
         if(raiz==null){
             raiz=nuevo;
+            return false;
         }else{
             raiz=insertarAVL(nuevo, raiz);
+            return banderaDuplicado;
         }
     }
     //Recorridos
@@ -157,18 +162,19 @@ public class ArbolAVL {
             System.out.print(r.getCategoria().getNomCategoria()+", ");
         }
     }
-}
-
-/*
-public NodoArbolAVL buscar(Categoria d, NodoArbolAVL r){
-        if(raiz==null){
+    
+    /*public NodoArbolAVL buscarArbol(Integer isbn, NodoArbolAVL r){
+        if(raiz==null || r == null){
             return null;
-        }else if(r.categoria==d){
+        }else if(r.getCategoria().getArbolb().contains(isbn)){
             return r;
         }else if(r.dato<d){
             return buscar(d, r.hijoDerecho);
         }else{
             return buscar(d, r.hijoIzquierdo);
         }
-    }
-*/
+    }*/
+}
+
+
+    
