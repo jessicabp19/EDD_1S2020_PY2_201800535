@@ -8,6 +8,7 @@ import Objetos.Categoria;
 import Objetos.Libro;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +19,7 @@ public class FrmCategorias extends javax.swing.JFrame {
     public static FrmCategorias INSTANCE = null;
     ArrayList<String> listaCat;
     ArbolB temp;
+    String categoriaBuscada="";
     
     public FrmCategorias() {
         initComponents();
@@ -63,7 +65,7 @@ public class FrmCategorias extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtNBusqueda = new javax.swing.JTextField();
-        btnBuscarISBN = new javax.swing.JButton();
+        btnBuscarCategoria = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnDetalles = new javax.swing.JButton();
@@ -278,11 +280,11 @@ public class FrmCategorias extends javax.swing.JFrame {
 
         txtNBusqueda.setToolTipText("ISBN");
 
-        btnBuscarISBN.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnBuscarISBN.setText("VER LIBROS");
-        btnBuscarISBN.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarCategoria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnBuscarCategoria.setText("VER LIBROS");
+        btnBuscarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarISBNActionPerformed(evt);
+                btnBuscarCategoriaActionPerformed(evt);
             }
         });
 
@@ -339,7 +341,7 @@ public class FrmCategorias extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnBuscarISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBuscarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEliminar)
                                 .addGap(18, 18, 18)
@@ -370,7 +372,7 @@ public class FrmCategorias extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCategoriaB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarISBN)
+                    .addComponent(btnBuscarCategoria)
                     .addComponent(btnEliminar)
                     .addComponent(btnCrearArbolB))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -414,9 +416,11 @@ public class FrmCategorias extends javax.swing.JFrame {
                         txtCategoriaB.getText(), miArbolAVLCategorias.obtenerRaiz());
                 if (nodo != null) {
                     miArbolBActual=nodo.getCategoria().getArbolb();
+                    tituloArbolB=txtCategoriaB.getText();
                     nodo.getCategoria().getArbolb().mostrarTabla(tablaMisLibros);
                 } else {
                     JOptionPane.showMessageDialog(null, "Categoria inexistente!", "ATENCIÓN", 1);
+                    limpiarTabla();
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ATENCIÓN", 1);
@@ -448,7 +452,7 @@ public class FrmCategorias extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnBuscarISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarISBNActionPerformed
+    private void btnBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCategoriaActionPerformed
         if(txtCategoriaB.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingresa el nombre de la categoria para visualizar sus libros", "ATENCIÓN", 1);
         }else{
@@ -460,12 +464,13 @@ public class FrmCategorias extends javax.swing.JFrame {
                     nodo.getCategoria().getArbolb().mostrarTabla(tablaMisLibros);
                 } else {
                     JOptionPane.showMessageDialog(null, "Categoria inexistente!", "ATENCIÓN", 1);
+                    limpiarTabla();
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ATENCIÓN", 1);
             }
         }
-    }//GEN-LAST:event_btnBuscarISBNActionPerformed
+    }//GEN-LAST:event_btnBuscarCategoriaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
@@ -481,6 +486,7 @@ public class FrmCategorias extends javax.swing.JFrame {
                 
                 if(!miArbolAVLCategorias.insertar(nuevaCategoria)){
                 JOptionPane.showMessageDialog(null, " CREACIÓN EXITOSA ", "FIN DEL PROCESO", 1);
+                txtNBusqueda.setText("");
                 }
                 verCategorias();
             } catch (Exception ed) {
@@ -503,7 +509,7 @@ public class FrmCategorias extends javax.swing.JFrame {
                     }
                 }    
             } else {
-                JOptionPane.showMessageDialog(null, " - Debes seleccionar un producto de la tabla - ");
+                JOptionPane.showMessageDialog(null, " - Debes seleccionar un libro de la tabla - ");
             }
         } catch (Exception ed) {
             JOptionPane.showMessageDialog(null, " Error, revisa tu selección ");
@@ -556,7 +562,7 @@ public class FrmCategorias extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscarISBN;
+    private javax.swing.JButton btnBuscarCategoria;
     private javax.swing.JButton btnCrearArbolB;
     private javax.swing.JButton btnDetalles;
     private javax.swing.JButton btnEliminar;
@@ -593,6 +599,7 @@ public class FrmCategorias extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void verCategorias(){
+        jComboBox1.removeAllItems();
         listaCat = new ArrayList<>();
         inOrden(miArbolAVLCategorias.obtenerRaiz());
         for(String cat: listaCat){
@@ -617,5 +624,15 @@ public class FrmCategorias extends javax.swing.JFrame {
         txtCategoria.setText(libro.getCategoria());
         txtIdioma.setText(libro.getIdioma());
         txtTitulo.setText(libro.getTitulo());
+    }
+    
+    public void limpiarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaMisLibros.getModel();
+        int cuantos = tablaMisLibros.getRowCount();
+        for (int i = 0; i < cuantos; i++) {
+            modelo.removeRow(0);
+        }
+        tablaMisLibros.setModel(modelo);
+        txtCategoriaB.setText("");
     }
 }

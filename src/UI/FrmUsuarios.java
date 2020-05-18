@@ -11,6 +11,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
     public FrmUsuarios() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         infoUsuario();
     }
 

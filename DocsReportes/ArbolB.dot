@@ -1,15 +1,18 @@
 digraph G {
 node [fontsize = "16"
 shape = "ellipse"];
-"n10774"[label = "<f1> |10774 | Optimización de rendimiento y aseguramiento de inocuidad en la industria de quesería; una guía para la pequeña y mediana empresa| <f2> |10844 | El ocaso de un régimen| <f3> |10848 | Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores| <f4> |10930 | Psicología aplicada a la enseñanza| <f5>" shape = "record"];
-"n10772"[label = "<f1> |10772 | Las Ventas en el mundo actual| <f2> |10773 | Procesamiento de carnes y embutidos; elaboración, estandarización, control de calidad| <f3>" shape = "record"];
-"n10775"[label = "<f1> |10775 | Producción higiénica de la leche cruda; una guía para la pequeña y mediana empresa| <f2> |10783 | Moral para intelectuales| <f3> |10786 | La idea del hombre| <f4> |10840 | Constitución pastoral Gaudium et spes, sobre la Iglesia en el mundo actual| <f5>" shape = "record"];
-"n10846"[label = "<f1> |10846 | Educación política nacional| <f2> |10847 | De hombres sociales y movimientos políticos / C. Wright Mills.| <f3>" shape = "record"];
-"n10927"[label = "<f1> |10927 | Evaluación de impacto en formación empresarial ; el caso FUNDES| <f2> |10928 | Cómo resolver el problema de falta de tiempo| <f3>" shape = "record"];
-"n10933"[label = "<f1> |10933 | La Mujer de pelo largo / Leonor Paz y Paz G.| <f2> |10934 | El libro de la piedad y de la muerte| <f3>" shape = "record"];
-"n10774":f1->"n10772":f0[];
-"n10774":f2->"n10775":f0[];
-"n10774":f3->"n10846":f0[];
-"n10774":f4->"n10927":f0[];
-"n10774":f5->"n10933":f0[];
+titulo[shape = none fontsize = "24" label = "Consulta"];
+"n10768"[label = "<f1> |10768 | Planeación estratégica aplicada...| <f2> |10831 | El camino y la meta...| <f3> |10907 | Las ventas en el mundo actual...| <f4>" shape = "record"];
+titulo[shape = none fontsize = "24" label = "Consulta"];
+"n10763"[label = "<f1> |10763 | Curso de derecho constitucional...| <f2> |10765 | Canales de comercialización...| <f3>" shape = "record"];
+titulo[shape = none fontsize = "24" label = "Consulta"];
+"n10770"[label = "<f1> |10770 | Marketing...| <f2> |10830 | Relación de la vida y virtudes del beato Hno. Pedro de San José de Betancurt...| <f3>" shape = "record"];
+titulo[shape = none fontsize = "24" label = "Consulta"];
+"n10838"[label = "<f1> |10838 | Gestión de la calidad en pequeñas y medianas empresas; memoria del proyecto copatrocinado por OEA /GTZ, 1982-2000...| <f2> |10839 | El mapa; una guía para el mejoramiento de la calidad en la pequeña y mediana empresa, basada en el método de W. Edwards Deming...| <f3>" shape = "record"];
+titulo[shape = none fontsize = "24" label = "Consulta"];
+"n10910"[label = "<f1> |10910 | Problemas y métodos de investigación en la historia de la filosofía...| <f2> |10912 | La Educación de los padres...| <f3> |10916 | La Odisea...| <f4>" shape = "record"];
+"n10768":f1->"n10763":f0[];
+"n10768":f2->"n10770":f0[];
+"n10768":f3->"n10838":f0[];
+"n10768":f4->"n10910":f0[];
 }

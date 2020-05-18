@@ -293,7 +293,6 @@ public class Login extends javax.swing.JFrame {
             if (path.endsWith(".json")) {
                 JSONParser parser = new JSONParser();
                 try {
-                    //Object obj = parser.parse(new FileReader(path));
                     Object obj = parser.parse(new InputStreamReader(
                         new FileInputStream(path), StandardCharsets.UTF_8));
                     JSONObject jsonObj = (JSONObject) obj;
@@ -307,11 +306,12 @@ public class Login extends javax.swing.JFrame {
                         String apellido = (String) usuario.get("Apellido");
                         String carrera = (String) usuario.get("Carrera");
                         String password = (String) usuario.get("Password");
-                        Usuario nuevo = new Usuario(carnet, nombre, apellido,
-                                carrera, password);
-                        miTablaUsuarios.insertar(nuevo);
-                        System.out.println(carnet + nombre
-                                + apellido + carrera + password);
+                        if (!miTablaUsuarios.carnetRegistrado(carnet)) {
+                            Usuario nuevo = new Usuario(carnet, nombre, apellido,carrera, password);
+                            miTablaUsuarios.insertar(nuevo);
+                            System.out.println(carnet + nombre
+                                    + apellido + carrera + password);
+                        }
                     }
                 } catch (Exception er) {
                     JOptionPane.showMessageDialog(null, "Error, revisa tu documento. Especificacion: " + er.getMessage());

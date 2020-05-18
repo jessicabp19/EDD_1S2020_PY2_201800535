@@ -29,6 +29,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
     
     public FrmMisLibros() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -413,12 +414,13 @@ public class FrmMisLibros extends javax.swing.JFrame {
                             }else{
                                 JOptionPane.showMessageDialog(null, "No te pertenece ningún libro con ese "
                                         + "número de ISBN", "ATENCIÓN", 1);
-                                
+                                limpiarTabla();
                             }
                         }
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Libro Inexistente", "ATENCIÓN", 1);
+                    limpiarTabla();
                 }
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Ingresa un número en el ISBN a buscar", "ATENCIÓN", 1);
@@ -478,8 +480,6 @@ public class FrmMisLibros extends javax.swing.JFrame {
                                 bt.add(nuevo);
                                 Categoria cat = new Categoria(categoria, bt, miUsuarioLogueado.getCarnet());
                                 miArbolAVLCategorias.insertar(cat);
-                                System.out.println(isbn + "/ NUEVA CAT / " + anio + idioma + titulo
-                                        + editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
                             }
                         }else{
                             JOptionPane.showMessageDialog(null, "NO se agregó un LIBRO REPETIDO", "ATENCIÓN", 0);
@@ -519,11 +519,10 @@ public class FrmMisLibros extends javax.swing.JFrame {
                         miArbolAVLCategorias.insertar(cat);
                     }
                     JOptionPane.showMessageDialog(null, "CREACION REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
+                    limpiar();
                 }else{
                     JOptionPane.showMessageDialog(null, "Ya existe un libro con el mismo ISBN", "ATENCIÓN", 0);
                 }
-                
-                
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Debes ingresar números en 'ISBN' , 'Año' y 'Edición'");
         } catch (Exception ed) {
@@ -620,8 +619,15 @@ public class FrmMisLibros extends javax.swing.JFrame {
         return false;
     }
     
-    public boolean ISBNValido(){
-        return true;
+    public void limpiar(){
+        txtISBN.setText("");
+        txtTitulo.setText("");
+        txtAnio.setText("");
+        txtAutor.setText("");
+        txtCategoria.setText("");
+        txtEdicion.setText("");
+        txtEditorial.setText("");
+        txtIdioma.setText("");
     }
     
     public void limpiarTabla(){

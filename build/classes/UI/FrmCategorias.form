@@ -70,7 +70,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnBuscarISBN" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="btnBuscarCategoria" min="-2" pref="160" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCategoriaB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBuscarISBN" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscarCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCrearArbolB" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -529,7 +529,7 @@
             <Property name="toolTipText" type="java.lang.String" value="ISBN"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnBuscarISBN">
+        <Component class="javax.swing.JButton" name="btnBuscarCategoria">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="12" style="0"/>
@@ -537,7 +537,7 @@
             <Property name="text" type="java.lang.String" value="VER LIBROS"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarISBNActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarCategoriaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVolver">

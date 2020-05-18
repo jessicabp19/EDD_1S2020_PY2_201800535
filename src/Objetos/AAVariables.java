@@ -10,8 +10,8 @@ public class AAVariables {
     public static TablaHash miTablaUsuarios = new TablaHash(45);
     public static Usuario miUsuarioLogueado;
     public static ArbolAVL miArbolAVLCategorias = new ArbolAVL();
-    public static ArbolB miArbolBActual=null;// = new ArbolB(5);//PARA LAS PRIMERAS PRUEBAS
-    //public static Btree miArbolActual;
+    public static ArbolB miArbolBActual=null;
+    public static String tituloArbolB="";
 
     public AAVariables() {
         Usuario defaultUser = new Usuario(123, "Admin", "Encargado", "AdmonEmpresas", "123");

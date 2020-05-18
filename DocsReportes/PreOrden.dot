@@ -1,5 +1,7 @@
 digraph D {
 start[shape = box style = rounded label = "Primero"];
-nodo-1->end;
+start-> nodo0;
+nodo0[shape = record style = rounded label = "Épico"];
+nodo0->end;
 end[shape = none label = "null"];
 }

@@ -1,19 +1,7 @@
 digraph D {
 start[shape = box style = rounded label = "Primero"];
 start-> nodo0;
-nodo0[shape = record style = rounded label = "AA"];
-nodo0->nodo1;
-nodo1[shape = record style = rounded label = "Bonito"];
-nodo1->nodo2;
-nodo2[shape = record style = rounded label = "CC"];
-nodo2->nodo3;
-nodo3[shape = record style = rounded label = "Lirico"];
-nodo3->nodo4;
-nodo4[shape = record style = rounded label = "U"];
-nodo4->nodo5;
-nodo5[shape = record style = rounded label = "V"];
-nodo5->nodo6;
-nodo6[shape = record style = rounded label = "W"];
-nodo6->end;
+nodo0[shape = record style = rounded label = "Épico"];
+nodo0->end;
 end[shape = none label = "null"];
 }

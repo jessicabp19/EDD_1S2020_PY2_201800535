@@ -6,6 +6,7 @@ public class FrmConfiguraciones extends javax.swing.JFrame {
     
     public FrmConfiguraciones() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")

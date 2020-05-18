@@ -56,7 +56,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/configuracion.png"))); // NOI18N
-        btnConfiguracion.setToolTipText("CONFIGURACION");
+        btnConfiguracion.setToolTipText("CONFIGURACION Y BLOQUES\n");
         btnConfiguracion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnConfiguracion.setContentAreaFilled(false);
         btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
