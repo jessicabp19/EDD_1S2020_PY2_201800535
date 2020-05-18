@@ -261,11 +261,6 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
         try {
-            //Libro l = miArbolBActual.eliminar(13550);
-            //System.out.println("--ELIMINADO--" + l.getISBN() + l.getTitulo());
-            //Libro b = miArbolBActual.eliminar(10935);
-            //System.out.println("--ELIMINADO--" + b.getISBN() + b.getTitulo());
-            contador=0;contador1=0;
             dibujarArbolB("ArbolB");
             graficador.dibujar(fileInputPath, fileOutputPath);
             esperar();
@@ -438,11 +433,12 @@ public class FrmReportes extends javax.swing.JFrame {
                 bw.write("");bw.close();
                 bWriter = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
                 
-                bWriter.append("digraph G {\n");
-                //nodosArbol(miArbolBActual.getRoot());
-                
-                nodosArbol2(miArbolBActual.getRoot());
-                lineasArbol2(miArbolBActual.getRoot());
+                bWriter.append("digraph G {\nnode [fontsize = \"16\"\n" +
+                "shape = \"ellipse\"];\n");
+
+                //bWriter.append("digraph G {\n");
+                nodosArbol(miArbolBActual.getRoot());
+                lineasArbol(miArbolBActual.getRoot());
                 bWriter.append("}");
                 
                 bWriter.close();
@@ -459,25 +455,18 @@ public class FrmReportes extends javax.swing.JFrame {
             int i=0;
             long isbn;
             String titulo;
-            bWriter.append("n"+contador + "[label = \"");
+            bWriter.append("\"n"+aux.getISBN() + "\"[label = \"");
             
-            /*String idNodo="";
-            for(int j = 0; j < arbol.numberOfKeys(); j++){
-                if(arbol.getKey(j)!=null){
-                    idNodo=idNodo+arbol.getKey(j).getISBN();
-                }
-            }*/
-            //bWriter.append(idNodo + "[label = \"");
             while(aux!=null){
                 isbn=arbol.getKey(i).getISBN();
                 titulo=arbol.getKey(i).getTitulo();
-                bWriter.append(isbn + " - " + titulo + " | ");
+                bWriter.append("<f"+(i+1)+"> |" + isbn + " | " + titulo + "| ");
                 i++;
                 aux = arbol.getKey(i);
             }
-            bWriter.append("\"];\n");
+            bWriter.append("<f"+(i+1)+">\" shape = \"record\"];\n");
             
-            contador++;
+            //contador++;
             for(int j = 0; j < arbol.numberOfChildren(); j++){
                 if(arbol.getChild(j)!=null){
                     nodosArbol(arbol.getChild(j));
@@ -492,15 +481,8 @@ public class FrmReportes extends javax.swing.JFrame {
             int i=0;
             long isbn;
             String titulo;
-            bWriter.append("n"+aux.getISBN() + "[label = \"");
+            bWriter.append("\"n"+aux.getISBN() + "\"[label = \"");
             
-            /*String idNodo="";
-            for(int j = 0; j < arbol.numberOfKeys(); j++){
-                if(arbol.getKey(j)!=null){
-                    idNodo=idNodo+arbol.getKey(j).getISBN();
-                }
-            }*/
-            //bWriter.append(idNodo + "[label = \"");
             while(aux!=null){
                 isbn=arbol.getKey(i).getISBN();
                 titulo=arbol.getKey(i).getTitulo();
@@ -544,7 +526,7 @@ public class FrmReportes extends javax.swing.JFrame {
             bWriter.append("\"];\n");*/
             for(int j = 0; j < arbol.numberOfChildren(); j++){
                 if(arbol.getChild(j)!=null){
-                    bWriter.append("n"+aux.getISBN() + "->"+"n"+arbol.getChild(j).getKey(0).getISBN());
+                    bWriter.append("n"+aux.getISBN() + "->"+"n"+arbol.getChild(j).getKey(0).getISBN()+";\n");
                 }
             }
             //contador++;
@@ -557,82 +539,24 @@ public class FrmReportes extends javax.swing.JFrame {
     }
     
     private void lineasArbol(NodoArbolB arbol){
-        /*if (arbol != null){
+        if (arbol != null){
             Libro aux = arbol.getKey(0);
             int i=0;
             long isbn;
             String titulo;
-           // bWriter.append("n"+contador + "[label = \"");
             
-            String idNodo="n", idHijo="n";
-            for(int j = 0; j < arbol.numberOfKeys(); j++){
-                if(arbol.getKey(j)!=null){
-                    idNodo=idNodo+arbol.getKey(j).getISBN();
-                }
-            }
             for(int j = 0; j < arbol.numberOfChildren(); j++){
                 if(arbol.getChild(j)!=null){
-                    for(int x = 0; x < arbol.numberOfKeys(); x++){
-                        if(arbol.getKey(x)!=null){
-                        idHijo=idNodo+arbol.getKey(x).getISBN();
-                    }
-                }    
-                    bWriter.append(idNodo + "->" );
+                    bWriter.append("\"n"+aux.getISBN() + "\":f"+(j+1)+"->"+"\"n"+arbol.getChild(j).getKey(0).getISBN()+"\":f0[];\n");
                 }
             }
-            bWriter.append(idNodo + "[label = \"");
-            while(aux!=null){
-                isbn=arbol.getKey(i).getISBN();
-                titulo=arbol.getKey(i).getTitulo();
-                bWriter.append(isbn + " - " + titulo + " | ");
-                i++;
-                aux = arbol.getKey(i);
-            }
-            bWriter.append("\"];\n");
-            
             //contador++;
             for(int j = 0; j < arbol.numberOfChildren(); j++){
                 if(arbol.getChild(j)!=null){
-                    nodosArbol(arbol.getChild(j));
+                    lineasArbol(arbol.getChild(j));
                 }
             }
-        }*/
-        
-        
-        
-        /*if (arbol != null){
-            if (arbol.getHijoDerecho() != null) {
-                avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoDerecho().getCategoria().getNomCategoria() + ";\n");
-            }
-            if (arbol.getHijoIzquierdo() != null) {
-                avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoIzquierdo().getCategoria().getNomCategoria() + ";\n");
-            }
-            lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
-        }*/
-        
-        //if (arbol != null){
-        
-//            Libro aux = arbol.getKey(0);
-//            int i=0;
-//            long isbn;
-//            String titulo;
-//            bWriter.append("n"+contador + "[label = \"");
-//            while(aux!=null){
-//                isbn=arbol.getKey(i).getISBN();
-//                titulo=arbol.getKey(i).getTitulo();
-//                bWriter.append(isbn + " - " + titulo + " | ");
-//                i++;
-//                aux = arbol.getKey(i);
-//            }
-//            bWriter.append("\"];\n");
-
-            /*contador1++;
-            for(int j = 0; j < arbol.numberOfChildren(); j++){
-                if(arbol.getChild(j)!=null){
-                    bWriter.append("n"+(contador1-1) + "->" + "n"+contador1 + ";\n");
-                }
-            }
-        }*/
+        }
     }
     
     //RECORRER POR NIVELES 

@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,7 +21,11 @@ import org.json.simple.parser.ParseException;
 public class FrmMisLibros extends javax.swing.JFrame {
 
     public static FrmMisLibros INSTANCE = null;
-    public boolean existe;
+    public NodoArbolB nodo;
+    private ArbolB arbolTemp;
+    public boolean existe, existe1=false;
+    public int isbnBuscado;
+    
     
     public FrmMisLibros() {
         initComponents();
@@ -392,8 +397,25 @@ public class FrmMisLibros extends javax.swing.JFrame {
         if(txtISBNBusqueda.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingresa el ISBN a buscar", "ATENCIÓN", 1);
         }else{
+            existe1=false;
             try{
-                
+                isbnBuscado=Integer.parseInt(txtISBNBusqueda.getText());
+                existe2(miArbolAVLCategorias.obtenerRaiz());
+                if(existe1){//existe(miArbolAVLCategorias.obtenerRaiz())
+                    for (int i = 0; i < nodo.cantLibros; i++) {
+                        if ((nodo.getKey(i) != null) && (nodo.getKey(i).getISBN().compareTo(isbnBuscado) == 0)) {
+                            if(nodo.getKey(i).getCarneUsuario()==miUsuarioLogueado.getCarnet()){
+                                mostrarEnTabla(tablaMisLibros, nodo.getKey(i));
+                            }else{
+                                JOptionPane.showMessageDialog(null, "No te pertenece ningún libro con ese "
+                                        + "número de ISBN", "ATENCIÓN", 1);
+                                
+                            }
+                        }
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Libro Inexistente", "ATENCIÓN", 1);
+                }
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Ingresa un número en el ISBN a buscar", "ATENCIÓN", 1);
             }catch(Exception e){
@@ -605,28 +627,46 @@ public class FrmMisLibros extends javax.swing.JFrame {
         return true;
     }
     
-    private void nodosArbol(NodoArbolAVL arbol, Integer isbn){
-    if (arbol != null){
-        //avlWriter.append(arbol.getCategoria().getNomCategoria() + "[label = \"" + arbol.getCategoria().getNomCategoria() + "\"];\n");
-        //NodoArbolB aux= arbol.getCategoria().getArbolb().buscar(arbol.getCategoria().getArbolb().getRoot(), isbn);
-        /*if(aux != null){
-            existe=true;
-        }else{
-            existe=false;
-        }*/
-        nodosArbol(arbol.getHijoIzquierdo(), isbn);nodosArbol(arbol.getHijoDerecho(), isbn);
-    }
+    public void limpiarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaMisLibros.getModel();
+        int cuantos = tablaMisLibros.getRowCount();
+        for (int i = 0; i < cuantos; i++) {
+            modelo.removeRow(0);
+        }
+        tablaMisLibros.setModel(modelo);
+        txtISBNBusqueda.setText("");
     }
     
-    private void lineasArbol(NodoArbolAVL arbol, Integer isbn){
-    /*if (arbol != null){
-        if (arbol.getHijoDerecho() != null) {
-            if(arbol.getCategoria().getArbolb().
+    
+    public void existe2(NodoArbolAVL r){
+        if(r!=null){
+            
+            existe=r.getCategoria().getArbolb().contains(isbnBuscado);
+            if(existe==true){
+                nodo=r.getCategoria().getArbolb().getNodo(isbnBuscado);
+                arbolTemp=r.getCategoria().getArbolb();
+                existe1=true;
+            }
+            existe2(r.getHijoIzquierdo());
+            existe2(r.getHijoDerecho());
         }
-        if (arbol.getHijoIzquierdo() != null) {
-            avlWriter.append(arbol.getCategoria().getNomCategoria() + "->" + arbol.getHijoIzquierdo().getCategoria().getNomCategoria() + ";\n");
-        }
-        lineasArbol(arbol.getHijoIzquierdo());lineasArbol(arbol.getHijoDerecho());
-    }*/
     }
+    
+    public void mostrarEnTabla(JTable tabla, Libro aux){
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        int cuantos = tabla.getRowCount();
+        for (int i = 0; i < cuantos; i++) {
+            modelo.removeRow(0);
+        }
+        tabla.setModel(modelo);
+        Object[] datos = new Object[5];
+        datos[0] = "" + aux.getISBN();
+        datos[1] = aux.getTitulo();
+        datos[2] = aux.getAutor();
+        datos[3] = "" + aux.getEdicion();
+        datos[4] = aux.getCategoria();
+        modelo.addRow(datos);
+        tabla.setModel(modelo);
+    }
+    
 }

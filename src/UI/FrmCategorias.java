@@ -406,17 +406,22 @@ public class FrmCategorias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArbolBActionPerformed
-        /*try {
-            if (tablaProductos.getSelectedRow() != -1) {
-                int fila = tablaProductos.getSelectedRow();//getModel().getRowCount();
-                Object dato = tablaProductos.getValueAt(fila, 0);
-                int id = Integer.parseInt(dato.toString());
-                miListaProductos.eliminar(id);//PENDIENTE ELIMINAR EN LAS OFERTAS Y EN EL CARRITO DEL CLIENTE
-                miListaProductos.mostrarTabla(tablaProductos);
+        if(txtCategoriaB.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingresa el nombre de la categoria para generar su reporte", "ATENCIÓN", 1);
+        }else{
+            try{
+                NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(
+                        txtCategoriaB.getText(), miArbolAVLCategorias.obtenerRaiz());
+                if (nodo != null) {
+                    miArbolBActual=nodo.getCategoria().getArbolb();
+                    nodo.getCategoria().getArbolb().mostrarTabla(tablaMisLibros);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Categoria inexistente!", "ATENCIÓN", 1);
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ATENCIÓN", 1);
             }
-        } catch (Exception ed) {
-            JOptionPane.showMessageDialog(null, "Dato no Válido " + ed.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_btnCrearArbolBActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed

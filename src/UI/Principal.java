@@ -171,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibrosActionPerformed
         FrmMisLibros miPantalla = FrmMisLibros.getSingletonInstance();
         miPantalla.setTitle("LIBROS");
-        //miPantalla.setResizable(false);
+        miPantalla.limpiarTabla();
         miPantalla.setLocationRelativeTo(null);
         miPantalla.setVisible(true);
         /*Añadir masivamente, individualmete, eliminar y buscar*/
