@@ -1,5 +1,15 @@
 digraph G {
 node [fontsize = "16"
 shape = "ellipse"];
-"n100"[label = "<f1> |100 | A| <f2> |100 | A| <f3>" shape = "record"];
+"n10774"[label = "<f1> |10774 | Optimización de rendimiento y aseguramiento de inocuidad en la industria de quesería; una guía para la pequeña y mediana empresa| <f2> |10844 | El ocaso de un régimen| <f3> |10848 | Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores| <f4> |10930 | Psicología aplicada a la enseñanza| <f5>" shape = "record"];
+"n10772"[label = "<f1> |10772 | Las Ventas en el mundo actual| <f2> |10773 | Procesamiento de carnes y embutidos; elaboración, estandarización, control de calidad| <f3>" shape = "record"];
+"n10775"[label = "<f1> |10775 | Producción higiénica de la leche cruda; una guía para la pequeña y mediana empresa| <f2> |10783 | Moral para intelectuales| <f3> |10786 | La idea del hombre| <f4> |10840 | Constitución pastoral Gaudium et spes, sobre la Iglesia en el mundo actual| <f5>" shape = "record"];
+"n10846"[label = "<f1> |10846 | Educación política nacional| <f2> |10847 | De hombres sociales y movimientos políticos / C. Wright Mills.| <f3>" shape = "record"];
+"n10927"[label = "<f1> |10927 | Evaluación de impacto en formación empresarial ; el caso FUNDES| <f2> |10928 | Cómo resolver el problema de falta de tiempo| <f3>" shape = "record"];
+"n10933"[label = "<f1> |10933 | La Mujer de pelo largo / Leonor Paz y Paz G.| <f2> |10934 | El libro de la piedad y de la muerte| <f3>" shape = "record"];
+"n10774":f1->"n10772":f0[];
+"n10774":f2->"n10775":f0[];
+"n10774":f3->"n10846":f0[];
+"n10774":f4->"n10927":f0[];
+"n10774":f5->"n10933":f0[];
 }

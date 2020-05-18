@@ -224,10 +224,14 @@ public class FrmReportes extends javax.swing.JFrame {
         try {
             PreOrden=new ListaSimple();
             preOrden(miArbolAVLCategorias.obtenerRaiz());
-            dibujarRecorrido("PreOrden", PreOrden);
-            graficador.dibujar(fileInputPath, fileOutputPath);
-            esperar();
-            ver("PreOrden");
+            if(PreOrden.estaVacia()){
+                JOptionPane.showMessageDialog(null, "Aún no hay Categorias", "ATENCIÓN", 1);
+            }else{
+                dibujarRecorrido("PreOrden", PreOrden);
+                graficador.dibujar(fileInputPath, fileOutputPath);
+                esperar();
+                ver("PreOrden");
+            }
         } catch (IOException e) {
             System.out.println("EXCEPTION");
         }
@@ -237,10 +241,14 @@ public class FrmReportes extends javax.swing.JFrame {
         try {
             InOrden=new ListaSimple();
             inOrden(miArbolAVLCategorias.obtenerRaiz());
-            dibujarRecorrido("InOrden", InOrden);
-            graficador.dibujar(fileInputPath, fileOutputPath);
-            esperar();
-            ver("InOrden");
+            if(InOrden.estaVacia()){
+                JOptionPane.showMessageDialog(null, "Aún no hay Categorias", "ATENCIÓN", 1);
+            }else{
+                dibujarRecorrido("InOrden", InOrden);
+                graficador.dibujar(fileInputPath, fileOutputPath);
+                esperar();
+                ver("InOrden");
+            }
         } catch (IOException e) {
             System.out.println("EXCEPTION");
         }
@@ -250,10 +258,14 @@ public class FrmReportes extends javax.swing.JFrame {
         try {
             PostOrden=new ListaSimple();
             postOrden(miArbolAVLCategorias.obtenerRaiz());
-            dibujarRecorrido("PostOrden", PostOrden);
-            graficador.dibujar(fileInputPath, fileOutputPath);
-            esperar();
-            ver("PostOrden");
+            if(PostOrden.estaVacia()){
+                JOptionPane.showMessageDialog(null, "Aún no hay Categorias", "ATENCIÓN", 1);
+            }else{
+                dibujarRecorrido("PostOrden", PostOrden);
+                graficador.dibujar(fileInputPath, fileOutputPath);
+                esperar();
+                ver("PostOrden");
+            }
         } catch (IOException e) {
             System.out.println("EXCEPTION");
         }
@@ -261,10 +273,14 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnArbolBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolBActionPerformed
         try {
-            dibujarArbolB("ArbolB");
-            graficador.dibujar(fileInputPath, fileOutputPath);
-            esperar();
-            ver("ArbolB");
+            if(miArbolBActual!=null){   
+                dibujarArbolB("ArbolB");
+                graficador.dibujar(fileInputPath, fileOutputPath);
+                esperar();
+                ver("ArbolB");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se he generado ningún ÁrbolB", "ATENCIÓN", 1);
+            }
         } catch (IOException e) {
             System.out.println("EXCEPTION");
         }
@@ -345,7 +361,7 @@ public class FrmReportes extends javax.swing.JFrame {
     public void esperar () {
         try {
             espera();
-            Thread.sleep (500);
+            Thread.sleep (800);
         } catch (Exception e) {
             // Mensaje en caso de que falle
         }

@@ -23,7 +23,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
     public static FrmMisLibros INSTANCE = null;
     public NodoArbolB nodo;
     private ArbolB arbolTemp;
-    public boolean existe, existe1=false;
+    public boolean existe, existe1=false, existe2=false;
     public int isbnBuscado;
     
     
@@ -356,17 +356,21 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        /*try {
-            if (tablaProductos.getSelectedRow() != -1) {
-                int fila = tablaProductos.getSelectedRow();//getModel().getRowCount();
-                Object dato = tablaProductos.getValueAt(fila, 0);
-                int id = Integer.parseInt(dato.toString());
-                miListaProductos.eliminar(id);//PENDIENTE ELIMINAR EN LAS OFERTAS Y EN EL CARRITO DEL CLIENTE
-                miListaProductos.mostrarTabla(tablaProductos);
+        try {
+            if (tablaMisLibros.getSelectedRow() != -1) {
+                int fila = tablaMisLibros.getSelectedRow();//getModel().getRowCount();
+                Object dato = tablaMisLibros.getValueAt(fila, 0);
+                Integer id = Integer.parseInt(dato.toString());
+                existe2(miArbolAVLCategorias.obtenerRaiz(), id);
+                arbolTemp.eliminar(id);
+                JOptionPane.showMessageDialog(null, "ELIMINADO EXITOSAMENTE", "FIN DEL PROCESO", 1);
+                limpiarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "Seleccione un libro de la tabla", "ATENCIÓN", 1);
             }
         } catch (Exception ed) {
             JOptionPane.showMessageDialog(null, "Dato no Válido " + ed.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNActionPerformed
@@ -400,7 +404,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
             existe1=false;
             try{
                 isbnBuscado=Integer.parseInt(txtISBNBusqueda.getText());
-                existe2(miArbolAVLCategorias.obtenerRaiz());
+                existe1(miArbolAVLCategorias.obtenerRaiz());
                 if(existe1){//existe(miArbolAVLCategorias.obtenerRaiz())
                     for (int i = 0; i < nodo.cantLibros; i++) {
                         if ((nodo.getKey(i) != null) && (nodo.getKey(i).getISBN().compareTo(isbnBuscado) == 0)) {
@@ -445,6 +449,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
                     JSONArray libros = (JSONArray) jsonObj.get("libros");
                     Iterator<JSONObject> iterador = libros.iterator();
                     while (iterador.hasNext()) {
+                        existe2=false;
                         JSONObject libro = (JSONObject) iterador.next();
                         long isbn = (long) libro.get("ISBN");
                         System.out.println(isbn);
@@ -461,18 +466,23 @@ public class FrmMisLibros extends javax.swing.JFrame {
                         Libro nuevo = new Libro((Integer)a, b, idioma, titulo, 
                         editorial, autor,c, categoria, miUsuarioLogueado.getCarnet());
                         
-                        NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(categoria, miArbolAVLCategorias.obtenerRaiz());
-                        if(nodo != null){
-                            nodo.getCategoria().getArbolb().add(nuevo);
-                            System.out.println(isbn + "/ CAT EXIST / "+ anio + idioma + titulo + 
-                        editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                        existe2(miArbolAVLCategorias.obtenerRaiz(), a);//VALIDACION ISBN REPETIDO
+                        if(!existe2){
+                            NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(categoria, miArbolAVLCategorias.obtenerRaiz());
+                            if (nodo != null) {
+                                nodo.getCategoria().getArbolb().add(nuevo);
+                                System.out.println(isbn + "/ CAT EXIST / " + anio + idioma + titulo
+                                        + editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                            } else {
+                                ArbolB bt = new ArbolB(5);
+                                bt.add(nuevo);
+                                Categoria cat = new Categoria(categoria, bt, miUsuarioLogueado.getCarnet());
+                                miArbolAVLCategorias.insertar(cat);
+                                System.out.println(isbn + "/ NUEVA CAT / " + anio + idioma + titulo
+                                        + editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                            }
                         }else{
-                            ArbolB bt = new ArbolB(5);
-                            bt.add(nuevo);
-                            Categoria cat = new Categoria(categoria, bt , miUsuarioLogueado.getCarnet());
-                            miArbolAVLCategorias.insertar(cat);
-                            System.out.println(isbn + "/ NUEVA CAT / "+ anio + idioma + titulo + 
-                        editorial + autor + edicion + categoria + miUsuarioLogueado.getCarnet());
+                            JOptionPane.showMessageDialog(null, "NO se agregó un LIBRO REPETIDO", "ATENCIÓN", 0);
                         }
                     }
                     JOptionPane.showMessageDialog(null, "CARGA REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
@@ -496,35 +506,22 @@ public class FrmMisLibros extends javax.swing.JFrame {
                 int c = Integer.parseInt(txtEdicion.getText());
                 Libro nuevo = new Libro( a, b, txtIdioma.getText(), txtTitulo.getText(),
                 txtEditorial.getText(), txtAutor.getText(), c, txtCategoria.getText(), miUsuarioLogueado.getCarnet());
-
-                NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(txtCategoria.getText(), miArbolAVLCategorias.obtenerRaiz());
-                if (nodo != null) {
-                    nodo.getCategoria().getArbolb().add(nuevo);
-                } else {
-                    ArbolB bt = new ArbolB(5);
-                    bt.add(nuevo);
-                    Categoria cat = new Categoria(txtCategoria.getText(), bt, miUsuarioLogueado.getCarnet());
-                    miArbolAVLCategorias.insertar(cat);
+                existe2=false;
+                existe2(miArbolAVLCategorias.obtenerRaiz(), a);//VALIDACION ISBN REPETIDO
+                if(!existe2){
+                    NodoArbolAVL nodo = miArbolAVLCategorias.buscar1(txtCategoria.getText(), miArbolAVLCategorias.obtenerRaiz());
+                    if (nodo != null) {
+                        nodo.getCategoria().getArbolb().add(nuevo);
+                    } else {
+                        ArbolB bt = new ArbolB(5);
+                        bt.add(nuevo);
+                        Categoria cat = new Categoria(txtCategoria.getText(), bt, miUsuarioLogueado.getCarnet());
+                        miArbolAVLCategorias.insertar(cat);
+                    }
+                    JOptionPane.showMessageDialog(null, "CREACION REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ya existe un libro con el mismo ISBN", "ATENCIÓN", 0);
                 }
-                JOptionPane.showMessageDialog(null, "CREACION REALIZADA EXITOSAMENTE!", "FIN DEL PROCESO", 1);
-                
-                
-                
-                
-                
-                
-                /*if (a <= 0 || b <= 0 || c <=0) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar números positivos en 'ISBN' , 'Anio' y 'Edición' ");
-                } else if (miListaProductos.yaExiste(txtNombre.getText(), txtDescripcion.getText(),
-                    precio, existencias, txtDireccion.getText())) {
-                JOptionPane.showMessageDialog(null, "El producto ya existe en el sistema");
-            } else {
-                miListaProductos.addProducto(txtNombre.getText(), txtDescripcion.getText(),
-                    precio, existencias, txtDireccion.getText());
-                miListaProductos.mostrarTabla(tablaProductos);
-                limpiar();
-            }*/
-                
                 
                 
         } catch (NumberFormatException e) {
@@ -638,7 +635,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }
     
     
-    public void existe2(NodoArbolAVL r){
+    public void existe1(NodoArbolAVL r){
         if(r!=null){
             
             existe=r.getCategoria().getArbolb().contains(isbnBuscado);
@@ -647,8 +644,22 @@ public class FrmMisLibros extends javax.swing.JFrame {
                 arbolTemp=r.getCategoria().getArbolb();
                 existe1=true;
             }
-            existe2(r.getHijoIzquierdo());
-            existe2(r.getHijoDerecho());
+            existe1(r.getHijoIzquierdo());
+            existe1(r.getHijoDerecho());
+        }
+    }
+    
+    public void existe2(NodoArbolAVL r, Integer isbn){
+        if(r!=null){
+            
+            existe=r.getCategoria().getArbolb().contains(isbn);
+            if(existe==true){
+                nodo=r.getCategoria().getArbolb().getNodo(isbn);
+                arbolTemp=r.getCategoria().getArbolb();
+                existe2=true;
+            }
+            existe2(r.getHijoIzquierdo(), isbn);
+            existe2(r.getHijoDerecho(), isbn);
         }
     }
     
