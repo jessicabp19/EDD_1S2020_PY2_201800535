@@ -564,6 +564,47 @@ public class ArbolB {
         tabla.setModel(modelo);
     }
     
+    public DefaultTableModel obtenerLibros(JTable tabla, String cadena, long carnet) {
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+//        int cuantos = tabla.getRowCount();
+//        for (int i = 0; i < cuantos; i++) {
+//            modelo.removeRow(0);
+//        }
+//        tabla.setModel(modelo);
+        
+        LinkedList cola;
+        NodoArbolB aux;
+
+        if (raiz != null) { //SI LA RAIZ ES DIFERENTE DE NULL...
+            cola = new LinkedList();
+            cola.addFirst(raiz);
+
+            while (cola.peek() != null) { //MIENTRAS HAYAN LIBROS EN LA COLA...
+                aux = (NodoArbolB) cola.removeLast();//Obtenemos el ultimo
+                for (int i = 0; i < maxClaves; i++) {
+                    if ((aux.getLibro(i) != null) && (aux.getLibro(i).getTitulo().contains(cadena))
+                            && (carnet==aux.getLibro(i).getCarneUsuario())) {
+                        System.out.print(aux.getLibro(i).getTitulo() + "\n");
+                        Object[] datos = new Object[5];
+                        datos[0] = "" + aux.getLibro(i).getISBN();
+                        datos[1] = aux.getLibro(i).getTitulo();
+                        datos[2] = aux.getLibro(i).getAutor();
+                        datos[3] = aux.getLibro(i).getEdicion();
+                        datos[4] = aux.getLibro(i).getCategoria();
+                        modelo.addRow(datos);
+                    }
+                }
+                for (int i = 0; i < maxHijos; i++) {//CICLO PARA AGREGAR HIJOS
+                    if (aux.getHijo(i) != null) {
+                        cola.addFirst(aux.getHijo(i));
+                    }
+                }                
+            }            
+        }
+        //tabla.setModel(modelo);
+        return modelo;
+    }
+    
 
     public boolean isExiste() {
         return existe;

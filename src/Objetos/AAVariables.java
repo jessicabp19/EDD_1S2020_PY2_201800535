@@ -4,9 +4,12 @@ import UI.UsacLibrary;
 import Estructuras.*;
 import Objetos.*;
 import Archivos.BTree;
+import java.io.File;
+import javax.swing.JOptionPane;
 
 public class AAVariables {
 
+    private final String direcJar=System.getProperty("user.dir") + "\\DocsReportes\\";
     public static TablaHash miTablaUsuarios = new TablaHash(45);
     public static Usuario miUsuarioLogueado;
     public static ArbolAVL miArbolAVLCategorias = new ArbolAVL();
@@ -21,41 +24,50 @@ public class AAVariables {
         miPantalla.setTitle("USAC LIBRARY");
         miPantalla.setResizable(false);
         miPantalla.setLocationRelativeTo(null);
-        //pruebasAVL();
+        creaciónArchivos();
     }
 
-    
-    
-    public void pruebasAVL(){
-        ArbolB b1 = new ArbolB(5);
-        Categoria c1 = new Categoria("Bonito", b1, 201800535);
-        miArbolAVLCategorias.insertar(c1);
-        
-        ArbolB b2 = new ArbolB(5);
-        Categoria c2 = new Categoria("Lirico", b2, 201800535);
-        miArbolAVLCategorias.insertar(c2);
-        
-        ArbolB b3 = new ArbolB(5);
-        Categoria c3 = new Categoria("U", b3, 201800535);
-        miArbolAVLCategorias.insertar(c3);
-        
-        ArbolB b11 = new ArbolB(5);
-        Categoria c11 = new Categoria("AA", b11, 201800535);
-        miArbolAVLCategorias.insertar(c11);
-        
-        ArbolB b21 = new ArbolB(5);
-        Categoria c21 = new Categoria("CC", b21, 201800535);
-        miArbolAVLCategorias.insertar(c21);
-        
-        ArbolB b31 = new ArbolB(5);
-        Categoria c31 = new Categoria("W", b31, 201800535);
-        miArbolAVLCategorias.insertar(c31);
-        
-        ArbolB b311 = new ArbolB(5);
-        Categoria c311 = new Categoria("V", b311, 201800535);
-        miArbolAVLCategorias.insertar(c311);
-    }
-    
-    
+    private void creaciónArchivos(){
+        try{
+            File directorioBC = new File("BlockChain");
+            directorioBC.mkdir();
+            File directorioRep = new File("DocsReportes");
+            directorioRep.mkdir();
+            File adot = new File(direcJar + "ArbolAVL.dot");
+            adot.createNewFile();
+            File apng = new File(direcJar + "ArbolAVL.png");
+            apng.createNewFile();
+            File bdot = new File(direcJar + "ArbolB.dot");
+            bdot.createNewFile();
+            File bpng = new File(direcJar + "ArbolB.png");
+            bpng.createNewFile();
+            File cdot = new File(direcJar + "Blockchain.dot");
+            cdot.createNewFile();
+            File cpng = new File(direcJar + "Blockchain.png");
+            cpng.createNewFile();
+            File ddot = new File(direcJar + "InOrden.dot");
+            ddot.createNewFile();
+            File dpng = new File(direcJar + "InOrden.png");
+            dpng.createNewFile();
+            File edot = new File(direcJar + "PreOrden.dot");
+            edot.createNewFile();
+            File epng = new File(direcJar + "PreOrden.png");
+            epng.createNewFile();
+            File fdot = new File(direcJar + "PostOrden.dot");
+            fdot.createNewFile();
+            File fpng = new File(direcJar + "PostOrden.png");
+            fpng.createNewFile();
 
+            File gpng = new File(direcJar + "ListaNodos.png");
+            gpng.createNewFile();
+            File gdot = new File(direcJar + "ListaNodos.dot");
+            gdot.createNewFile();
+            File hpng = new File(direcJar + "TablaDispersion.png");
+            hpng.createNewFile();
+            File hdot = new File(direcJar + "TablaDispersion.dot");
+            hdot.createNewFile();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR. Especificación: " + e.getMessage(), "ATENCIÓN", 1);
+        }
+    }
 }

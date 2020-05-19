@@ -398,6 +398,7 @@ public class FrmReportes extends javax.swing.JFrame {
             fileInputPath = direccionProyecto+nombreReporte+".dot";
             fileOutputPath = direccionProyecto+nombreReporte+".png";
             try {
+                File archivoDot = new File(fileInputPath);
                 BufferedWriter bw = new BufferedWriter(new FileWriter(fileInputPath.toString()));
                 bw.write("");bw.close();
                 PrintWriter writer = new PrintWriter(new FileWriter(fileInputPath.toString(), true));
@@ -684,4 +685,6 @@ public class FrmReportes extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
     }
+    
+    
 }

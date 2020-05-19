@@ -1,18 +1,12 @@
 digraph G {
 node [fontsize = "16"
 shape = "ellipse"];
-titulo[shape = none fontsize = "24" label = "Consulta"];
-"n10768"[label = "<f1> |10768 | Planeación estratégica aplicada...| <f2> |10831 | El camino y la meta...| <f3> |10907 | Las ventas en el mundo actual...| <f4>" shape = "record"];
-titulo[shape = none fontsize = "24" label = "Consulta"];
-"n10763"[label = "<f1> |10763 | Curso de derecho constitucional...| <f2> |10765 | Canales de comercialización...| <f3>" shape = "record"];
-titulo[shape = none fontsize = "24" label = "Consulta"];
-"n10770"[label = "<f1> |10770 | Marketing...| <f2> |10830 | Relación de la vida y virtudes del beato Hno. Pedro de San José de Betancurt...| <f3>" shape = "record"];
-titulo[shape = none fontsize = "24" label = "Consulta"];
-"n10838"[label = "<f1> |10838 | Gestión de la calidad en pequeñas y medianas empresas; memoria del proyecto copatrocinado por OEA /GTZ, 1982-2000...| <f2> |10839 | El mapa; una guía para el mejoramiento de la calidad en la pequeña y mediana empresa, basada en el método de W. Edwards Deming...| <f3>" shape = "record"];
-titulo[shape = none fontsize = "24" label = "Consulta"];
-"n10910"[label = "<f1> |10910 | Problemas y métodos de investigación en la historia de la filosofía...| <f2> |10912 | La Educación de los padres...| <f3> |10916 | La Odisea...| <f4>" shape = "record"];
-"n10768":f1->"n10763":f0[];
-"n10768":f2->"n10770":f0[];
-"n10768":f3->"n10838":f0[];
-"n10768":f4->"n10910":f0[];
+titulo[shape = none fontsize = "36" label = "Drama"];
+"n10817"[label = "<f1> |10817|Terremoto empresarial| <f2>" shape = "record"];
+titulo[shape = none fontsize = "36" label = "Drama"];
+"n10812"[label = "<f1> |10812|Metodología de la enseñanza técnica| <f2> |10813|Las Ideas de Piaget; su aplicación en el aula| <f3> |10815|Manual gestión de mantenimiento a la medida| <f4> |10816|Manual de gestión de la calidad total a la medida| <f5>" shape = "record"];
+titulo[shape = none fontsize = "36" label = "Drama"];
+"n10824"[label = "<f1> |10824|Cuatro filósofos en busca de Dios| <f2> |10825|La Tolerancia y la manipulación| <f3>" shape = "record"];
+"n10817":f1->"n10812":f0[];
+"n10817":f2->"n10824":f0[];
 }

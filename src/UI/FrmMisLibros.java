@@ -375,27 +375,37 @@ public class FrmMisLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNActionPerformed
-        /*try {
-            if (tablaProductos.getSelectedRow() != -1) {
-                int fila = tablaProductos.getSelectedRow();
-                Object dato = tablaProductos.getValueAt(fila, 0);
-                int id = Integer.parseInt(dato.toString());
-                String[] cadena = miListaProductos.buscar(id);
-                txtNombre.setText(cadena[0]);
-                txtDescripcion.setText(cadena[1]);
-                txtPrecio.setText(cadena[2]);
-                txtExistencia.setText(cadena[3]);
-                txtDireccion.setText(cadena[4]);
-                lblImagen.setSize(100, 100);
-                lblImagen.setIcon(colocarImagen(cadena[4], lblImagen));
-                //lblImagen.setIcon(new ImageIcon(cadena[4]));
-            } else {
-                JOptionPane.showMessageDialog(null, " - Debes seleccionar un producto en la tabla - ");
-            }
-        } catch (Exception ed) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ed.getMessage());
+        if(txtNBusqueda.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingresa el titulo a buscar", "ATENCIÓN", 1);
+        }else{
+            //existe1=false;
+            try{
+                //isbnBuscado=Integer.parseInt(txtISBNBusqueda.getText());
+                //existe1(miArbolAVLCategorias.obtenerRaiz());
+                //if(existe1){//existe(miArbolAVLCategorias.obtenerRaiz())
+//                    for (int i = 0; i < nodo.cantLibros; i++) {
+//                        if ((nodo.getKey(i) != null) && (nodo.getKey(i).getISBN().compareTo(isbnBuscado) == 0)) {
+//                            if(nodo.getKey(i).getCarneUsuario()==miUsuarioLogueado.getCarnet()){
+//                                mostrarEnTabla(tablaMisLibros, nodo.getKey(i));
+//                            }else{
+//                                JOptionPane.showMessageDialog(null, "No te pertenece ningún libro con ese "
+//                                        + "número de ISBN", "ATENCIÓN", 1);
+//                                limpiarTabla();
+//                            }
+//                        }
+//                    }
+//                }else{
+//                    JOptionPane.showMessageDialog(null, "Libro Inexistente", "ATENCIÓN", 1);
+//                    limpiarTabla();
+//                }
 
-        }*/
+            busquedaTitulo(miArbolAVLCategorias.obtenerRaiz(), txtNBusqueda.getText());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ingresa un número en el ISBN a buscar", "ATENCIÓN", 1);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ATENCIÓN", 1);
+            }
+        }
     }//GEN-LAST:event_btnBuscarNActionPerformed
 
     private void btnBuscarISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarISBNActionPerformed
@@ -638,6 +648,7 @@ public class FrmMisLibros extends javax.swing.JFrame {
         }
         tablaMisLibros.setModel(modelo);
         txtISBNBusqueda.setText("");
+        txtNBusqueda.setText("");
     }
     
     
@@ -666,6 +677,23 @@ public class FrmMisLibros extends javax.swing.JFrame {
             }
             existe2(r.getHijoIzquierdo(), isbn);
             existe2(r.getHijoDerecho(), isbn);
+        }
+    }
+    
+    public void busquedaTitulo(NodoArbolAVL r, String cadena){
+        if(r!=null){
+            
+            //existe=r.getCategoria().getArbolb().contains(isbn);
+//            if(existe==true){
+//                nodo=r.getCategoria().getArbolb().getNodo(isbn);
+//                arbolTemp=r.getCategoria().getArbolb();
+//                existe2=true;
+//            }
+            tablaMisLibros.setModel(
+                    r.getCategoria().getArbolb().obtenerLibros(tablaMisLibros, 
+                    cadena, miUsuarioLogueado.getCarnet()));
+            busquedaTitulo(r.getHijoIzquierdo(), cadena);
+            busquedaTitulo(r.getHijoDerecho(), cadena);
         }
     }
     
